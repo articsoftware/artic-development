@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 80" width="520" height="80">
+  <defs>
+    <radialGradient id="bg" cx="45%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#1d8a7c"/>
+      <stop offset="45%" stop-color="#0e6070"/>
+      <stop offset="100%" stop-color="#082535"/>
+    </radialGradient>
+    <linearGradient id="ml" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#d8f0f5" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="mr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d0ecf5" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#9dd4e8" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="mb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a8dce8" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7bc4d8" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="wm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38BEFF"/>
+      <stop offset="100%" stop-color="#0FFFCB"/>
+    </linearGradient>
+    <clipPath id="cc"><circle cx="40" cy="40" r="36"/></clipPath>
+  </defs>
+  <!-- Icon -->
+  <circle cx="40" cy="40" r="36" fill="url(#bg)"/>
+  <circle cx="40" cy="40" r="36" fill="none" stroke="#3ab8c8" stroke-width="1" opacity="0.2"/>
+  <g clip-path="url(#cc)">
+    <polygon points="53,68 65,40 77,68" fill="url(#mb)"/>
+    <polygon points="10,69 40,18 40,69" fill="url(#ml)"/>
+    <polygon points="40,18 70,69 40,69" fill="url(#mr)"/>
+    <polygon points="40,18 34,34 46,34" fill="white" opacity="0.93"/>
+    <rect x="6" y="66" width="72" height="6" fill="#051a2a" opacity="0.2"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="90" y="46" font-family="'Syne','Segoe UI',sans-serif" font-weight="800" font-size="30" fill="url(#wm)">Artic</text>
+  <text x="188" y="46" font-family="'Syne','Segoe UI',sans-serif" font-weight="800" font-size="30" fill="#E8F4FF">Web</text>
+  <!-- Tagline -->
+  <text x="90" y="62" font-family="'Outfit','Segoe UI',sans-serif" font-weight="400" font-size="9.5" fill="#8BA8C4" letter-spacing="2.5">DEVELOPMENT</text>
+</svg>

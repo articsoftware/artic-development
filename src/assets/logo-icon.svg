@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <radialGradient id="bg" cx="45%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#1d8a7c"/>
+      <stop offset="45%" stop-color="#0e6070"/>
+      <stop offset="100%" stop-color="#082535"/>
+    </radialGradient>
+    <linearGradient id="ml" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#d8f0f5" stop-opacity="0.85"/>
+    </linearGradient>
+    <linearGradient id="mr" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d0ecf5" stop-opacity="0.72"/>
+      <stop offset="100%" stop-color="#9dd4e8" stop-opacity="0.5"/>
+    </linearGradient>
+    <linearGradient id="mb" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a8dce8" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7bc4d8" stop-opacity="0.28"/>
+    </linearGradient>
+    <clipPath id="cc"><circle cx="200" cy="200" r="185"/></clipPath>
+  </defs>
+  <circle cx="200" cy="200" r="185" fill="url(#bg)"/>
+  <circle cx="200" cy="200" r="185" fill="none" stroke="#3ab8c8" stroke-width="1.5" opacity="0.2"/>
+  <g clip-path="url(#cc)">
+    <polygon points="268,340 330,195 392,340" fill="url(#mb)"/>
+    <polygon points="52,345 200,92 200,345" fill="url(#ml)"/>
+    <polygon points="200,92 348,345 200,345" fill="url(#mr)"/>
+    <polygon points="200,92 172,170 228,170" fill="white" opacity="0.93"/>
+    <rect x="30" y="334" width="360" height="22" fill="#051a2a" opacity="0.2"/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Outfit:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #080E1A;
+    color: #E8F4FF;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  select option { background: #0D1525; color: #E8F4FF; }
+}
+
+@layer utilities {
+  @keyframes awFadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes awFadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes awPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.8); }
+  }
+  @keyframes awGlow {
+    0%, 100% { box-shadow: 0 0 12px rgba(56,190,255,.3); }
+    50%       { box-shadow: 0 0 28px rgba(56,190,255,.6); }
+  }
+  @keyframes awAurora {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .aw-fade-1 { animation: awFadeDown .6s .05s both; }
+  .aw-fade-2 { animation: awFadeUp  .7s .15s both; }
+  .aw-fade-3 { animation: awFadeUp  .7s .28s both; }
+  .aw-fade-4 { animation: awFadeUp  .7s .42s both; }
+
+  .aw-glow   { animation: awGlow 3s ease-in-out infinite; }
+
+  .aw-aurora-text {
+    background: linear-gradient(90deg, #38BEFF, #0FFFCB, #38BEFF);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: awAurora 4s linear infinite;
+  }
+}
