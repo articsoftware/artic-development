@@ -110,7 +110,7 @@ export default function About() {
           <p className="text-[#8BA8C4] text-sm leading-relaxed mb-4">
             Desenvolvedor fullstack de Curitiba — sim, aquela cidade fria — fundador da{" "}
             <strong className="text-[#E8F4FF]">ArticWeb</strong>.
-            Trabalho com desenvolvimento de software há mais de 5 anos construindo produtos que funcionam de verdade.
+            Trabalho com desenvolvimento de software há mais de 3 anos construindo produtos que funcionam de verdade.
           </p>
           <p className="text-[#8BA8C4] text-sm leading-relaxed mb-4">
             Acredito que bom código é como o ártico: limpo, preciso e não colapsa sob pressão.
