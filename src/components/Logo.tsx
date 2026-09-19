@@ -4,7 +4,7 @@ interface LogoProps {
   iconOnly?: boolean;
 }
 
-export default function Logo({ size = "md", showTagline = false, iconOnly = false }: LogoProps) {
+export default function Logo({ size = "md", showTagline = true, iconOnly = false }: LogoProps) {
   const iconSize = { sm: 36, md: 48, lg: 64 }[size];
 
   const Icon = () => (
@@ -45,7 +45,7 @@ export default function Logo({ size = "md", showTagline = false, iconOnly = fals
 
   const textScale = { sm: 0.75, md: 1, lg: 1.35 }[size];
   const fs = Math.round(22 * textScale);
-  const fsTag = Math.round(8.5 * textScale);
+  const fsTag = Math.max(9, Math.round(8.5 * textScale));
 
   return (
     <div className="flex items-center gap-3">
@@ -61,7 +61,7 @@ export default function Logo({ size = "md", showTagline = false, iconOnly = fals
           letterSpacing: "0.01em",
           lineHeight: 1.1,
         }}>
-          ArticWeb
+          Artic
         </span>
         {showTagline && (
           <span style={{

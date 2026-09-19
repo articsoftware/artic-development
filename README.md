@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="src/assets/logo-icon.svg" width="80" alt="ArticWeb logo" />
-  <h1>ArticWeb Development</h1>
+  <img src="src/assets/logo-icon.svg" width="80" alt="Artic Development logo" />
+  <h1>Artic Development</h1>
   <p>Site institucional — React + TypeScript + Tailwind CSS</p>
 
   ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)
@@ -13,7 +13,7 @@
 
 ## 📋 Sobre o projeto
 
-Site institucional da **ArticWeb Development** — empresa de desenvolvimento de software fundada por João Pedro Plinta ([@pinguim](https://www.instagram.com/articweb.development/)).
+Site institucional da **Artic Development** — empresa de desenvolvimento de software fundada por João Pedro Plinta ([@pinguim](https://www.instagram.com/articweb.development/)).
 
 Construído com foco em performance, design ártico e código limpo.
 
@@ -103,5 +103,5 @@ npm run build
 ---
 
 <div align="center">
-  Made with ❄️ by <strong>João Pedro Plinta</strong> — ArticWeb Development
+  Made with ❄️ by <strong>João Pedro Plinta</strong> — Artic Development
 </div>

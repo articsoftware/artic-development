@@ -17,6 +17,7 @@ export interface SkillBar {
 }
 
 export interface ContactItem {
+  href?: string;
   icon: "mail" | "phone" | "pin";
   label: string;
   value: string;

@@ -11,11 +11,13 @@ export default function App() {
     <div className="bg-[#080E1A] text-[#E8F4FF] min-h-screen overflow-x-hidden"
       style={{ fontFamily: "'Outfit', sans-serif" }}>
       <Navbar />
+      <main id="main-content" tabIndex={-1}>
       <Hero />
       <Services />
       <About />
       <Process />
       <Contact />
+      </main>
       <Footer />
     </div>
   );
