@@ -2,60 +2,34 @@ import { useState } from "react";
 import { services } from "../data";
 import { serviceIcons, ArrowIcon, CheckIcon } from "./Icons";
 
-interface ServicesProps {
-  onSelectService: (value: string) => void;
-}
-
-export default function Services({ onSelectService }: ServicesProps) {
-  const [active, setActive] = useState<string | null>(services[0].id);
+export default function Services({ onSelectService }: { onSelectService: (value: string) => void }) {
+  const [active, setActive] = useState<string | null>(null);
 
   return (
     <section id="servicos" className="section services-section" aria-labelledby="services-title">
       <div className="container">
         <div className="section-heading">
-          <p className="section-label">O que construímos</p>
-          <div>
-            <h2 id="services-title">Do seu desafio<br />à solução certa.</h2>
-            <p>Uma presença digital melhor. Uma operação mais simples. Escolha por onde você quer começar.</p>
-          </div>
+          <div><p className="section-label">O que fazemos</p><h2 id="services-title">Seu desafio.<br />Nossa próxima construção.</h2></div>
+          <p>Da presença digital aos bastidores da operação, criamos a tecnologia que aproxima você do próximo passo.</p>
         </div>
-        <div className="service-list">
-          {services.map(({ id, title, summary, desc, tags, examples, formLabel }) => (
-            <article key={id} className={active === id ? "service-row is-open" : "service-row"}>
-              <h3>
-                <button
-                  id={"service-trigger-" + id}
-                  aria-expanded={active === id}
-                  aria-controls={"service-panel-" + id}
-                  onClick={() => setActive(active === id ? null : id)}
-                >
-                  <span className="service-icon" aria-hidden="true">{serviceIcons[id]}</span>
-                  <span className="service-name">{title}</span>
-                  <span className="service-summary">{summary}</span>
-                  <span className="service-toggle" aria-hidden="true">{active === id ? "−" : "+"}</span>
-                </button>
-              </h3>
-              <div id={"service-panel-" + id} role="region" aria-labelledby={"service-trigger-" + id} hidden={active !== id}>
-                <div className="service-detail">
-                  <div className="service-description">
-                    <p>{desc}</p>
-                    <ul className="service-tags" aria-label="Tecnologias utilizadas">
-                      {tags.map(tag => <li key={tag}>{tag}</li>)}
-                    </ul>
-                  </div>
-                  <div className="service-deliverables">
-                    <h4>O que podemos construir</h4>
-                    <ul>{examples.map(example => <li key={example}><span aria-hidden="true"><CheckIcon /></span>{example}</li>)}</ul>
-                    <a className="text-link" href="#contato" onClick={() => onSelectService(formLabel)}>
-                      Conversar sobre este serviço <ArrowIcon />
-                    </a>
-                  </div>
-                </div>
+        <div className="services-grid">
+          {services.map(({ id, title, summary, desc, examples, tags, formLabel }, index) => (
+            <article key={id} className={"solution-card" + (index === 0 ? " solution-featured" : "") + (active === id ? " is-open" : "")}>
+              <div className="solution-top"><span className="service-icon" aria-hidden="true">{serviceIcons[id]}</span><span className="solution-summary">{summary}</span></div>
+              <h3 id={"service-title-" + id}>{title}</h3>
+              <p className="solution-description">{desc}</p>
+              <ul className="service-tags" aria-label="Tecnologias">{tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+              <button className="solution-expand" id={"service-trigger-" + id} aria-expanded={active === id} aria-controls={"service-panel-" + id} onClick={() => setActive(active === id ? null : id)}>
+                Ver possibilidades <span aria-hidden="true">{active === id ? "−" : "+"}</span>
+              </button>
+              <div className="solution-detail" id={"service-panel-" + id} role="region" aria-labelledby={"service-title-" + id} hidden={active !== id}>
+                <ul>{examples.map(example => <li key={example}><span aria-hidden="true"><CheckIcon /></span>{example}</li>)}</ul>
+                <a href="#contato" className="text-link" onClick={() => onSelectService(formLabel)}>Conversar sobre este serviço <ArrowIcon /></a>
               </div>
             </article>
           ))}
         </div>
-        <p className="service-footnote">Ainda não sabe por onde começar? <a href="#contato">A primeira conversa é por nossa conta.</a></p>
+        <div className="services-invite"><p>Não sabe qual solução faz mais sentido?</p><a href="#contato" className="text-link">Vamos descobrir juntos <ArrowIcon /></a></div>
       </div>
     </section>
   );

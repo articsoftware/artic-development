@@ -1,66 +1,32 @@
 import { ArrowIcon } from "./Icons";
-
-function IceFormation() {
-  return (
-    <div className="ice-scene" aria-hidden="true">
-      <svg viewBox="0 0 820 800" fill="none">
-        <defs>
-          <linearGradient id="ice-light" x1="410" y1="80" x2="260" y2="660" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#E8F4FF"/><stop offset=".46" stopColor="#8BA8C4"/><stop offset="1" stopColor="#38BEFF" stopOpacity=".08"/>
-          </linearGradient>
-          <linearGradient id="ice-shadow" x1="430" y1="110" x2="670" y2="680" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#38BEFF"/><stop offset=".65" stopColor="#0D1525"/><stop offset="1" stopColor="#080E1A"/>
-          </linearGradient>
-          <linearGradient id="ice-edge" x1="420" y1="140" x2="420" y2="670" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#E8F4FF"/><stop offset="1" stopColor="#38BEFF" stopOpacity="0"/>
-          </linearGradient>
-          <radialGradient id="ice-halo"><stop stopColor="#38BEFF" stopOpacity=".18"/><stop offset="1" stopColor="#38BEFF" stopOpacity="0"/></radialGradient>
-        </defs>
-        <ellipse cx="440" cy="410" rx="370" ry="370" fill="url(#ice-halo)"/>
-        <g stroke="#8BA8C4" strokeOpacity=".14">
-          {[0, 1, 2, 3, 4].map(i => <ellipse key={i} cx="434" cy="631" rx={190 + i * 38} ry={33 + i * 15} />)}
-        </g>
-        <path d="m89 629 128-202 123 229Z" fill="#0D1525" stroke="#38BEFF" strokeOpacity=".18"/>
-        <path d="m217 427-28 207 151 22Z" fill="#38BEFF" fillOpacity=".07"/>
-        <path d="m204 628 213-478 247 455-211 79Z" fill="url(#ice-shadow)"/>
-        <path d="m417 150-213 478 249 56Z" fill="url(#ice-light)"/>
-        <path d="m417 150-24 246 60 288 31-289Z" fill="#E8F4FF" fillOpacity=".11"/>
-        <path d="m417 150-90 202 66 44Z" fill="#E8F4FF" fillOpacity=".34"/>
-        <path d="m327 352-123 276 189-232Z" fill="#E8F4FF" fillOpacity=".12"/>
-        <path d="m393 396-189 232 249 56Z" fill="#38BEFF" fillOpacity=".14"/>
-        <path d="m417 150 67 245 87 41Z" fill="#38BEFF" fillOpacity=".3"/>
-        <path d="m484 395 180 210-93-169Z" fill="#38BEFF" fillOpacity=".12"/>
-        <path d="m453 684 31-289 180 210Z" fill="#080E1A" fillOpacity=".24"/>
-        <path d="m417 150-213 478m213-478 36 534" stroke="url(#ice-edge)" strokeWidth="1.5"/>
-        <path d="m417 150 247 455" stroke="#38BEFF" strokeOpacity=".5"/>
-        {/* Paint the foreground mountain last so it occludes the rear edges. */}
-        <path d="m534 659 109-260 129 238Z" fill="url(#ice-shadow)" stroke="#38BEFF" strokeOpacity=".16"/>
-        <path d="m643 399-109 260 80-15Z" fill="url(#ice-light)" fillOpacity=".55"/>
-      </svg>
-      <div className="ice-note"><span className="ice-note-line" />Da superfície à estrutura.<br />Cada detalhe importa.</div>
-    </div>
-  );
-}
+import landscape from "../assets/arctic-landscape-v1.webp";
 
 export default function Hero() {
   return (
-    <section id="hero" className="hero">
-      <div className="container hero-inner">
-        <div className="hero-copy">
-          <p className="hero-category">Desenvolvimento de software sob medida</p>
-          <h1>Código que<br />não derrete<br />sob pressão.</h1>
-          <p className="hero-description">Sites, aplicativos e sistemas para o seu negócio. Da primeira conversa à entrega, você fala com quem desenvolve.</p>
-          <div className="hero-actions">
-            <a href="#contato" className="button-primary">Vamos conversar <ArrowIcon /></a>
-            <a href="#servicos" className="text-link">Explore os serviços <span aria-hidden="true">↓</span></a>
+    <section id="hero" className="hero" aria-labelledby="hero-title">
+      <div className="container">
+        <div className="hero-intro">
+          <div>
+            <p className="hero-category"><span /> Artic Development</p>
+            <h1 id="hero-title">Ideias à frente.<br />Software à altura.</h1>
+          </div>
+          <div className="hero-copy">
+            <p>Transformamos desafios em sites, aplicativos e sistemas que fazem sentido para o seu negócio.</p>
+            <a href="#contato" className="button-primary">Vamos construir juntos <ArrowIcon /></a>
+            <span className="hero-location">De Curitiba para onde sua ideia estiver.</span>
           </div>
         </div>
-        <IceFormation />
-        <div className="hero-signature">
-          <span>Contato direto.<br /><strong>Do começo ao próximo passo.</strong></span>
-          <span>Curitiba, Brasil<br /><strong>Atendimento remoto</strong></span>
-          <p className="availability"><span /> Disponível para novos projetos</p>
-          <a href="#servicos" aria-label="Explorar serviços" className="scroll-cue">↓</a>
+        <div className="horizon-panel">
+          <img className="horizon-landscape" src={landscape} alt="" width={2172} height={724} fetchPriority="high" />
+          <div className="horizon-title">
+            <h2>Uma boa experiência.<br />Uma base sólida.</h2>
+            <p>Design, tecnologia e cuidado em cada camada do seu projeto.</p>
+            <a className="horizon-link" href="#servicos">Conheça nossas soluções <ArrowIcon /></a>
+          </div>
+        </div>
+        <div className="hero-foot">
+          <p><span className="status-dot" /> Disponível para novos projetos</p>
+          <p>Conversa direta. Desenvolvimento próximo.</p>
         </div>
       </div>
     </section>
