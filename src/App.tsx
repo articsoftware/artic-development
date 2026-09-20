@@ -15,8 +15,7 @@ export default function App() {
     setServiceRequest(previous => ({ value, requestId: (previous?.requestId ?? 0) + 1 }));
   };
   return (
-    <div className="bg-[#080E1A] text-[#E8F4FF] min-h-screen overflow-x-hidden"
-      style={{ fontFamily: "'Outfit', sans-serif" }}>
+    <div className="site-shell">
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <Hero />

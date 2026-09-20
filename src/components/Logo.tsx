@@ -46,38 +46,12 @@ export default function Logo({ size = "md", showTagline = true, iconOnly = false
 
   if (iconOnly) return <Icon />;
 
-  const textScale = { sm: 0.75, md: 1, lg: 1.35 }[size];
-  const fs = Math.round(22 * textScale);
-  const fsTag = Math.max(9, Math.round(8.5 * textScale));
-
   return (
-    <div className="flex items-center gap-3">
+    <div className={"brand brand-" + size}>
       <Icon />
-      <div className="flex flex-col leading-none">
-        <span style={{
-          fontFamily: "'Syne', 'Segoe UI', sans-serif",
-          fontWeight: 800,
-          fontSize: fs,
-          background: "linear-gradient(135deg, #38BEFF, #0FFFCB)",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          letterSpacing: "0.01em",
-          lineHeight: 1.1,
-        }}>
-          Artic
-        </span>
-        {showTagline && (
-          <span style={{
-            fontFamily: "'Outfit', 'Segoe UI', sans-serif",
-            fontSize: fsTag,
-            color: "#8BA8C4",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase" as const,
-            marginTop: 3,
-          }}>
-            Development
-          </span>
-        )}
+      <div className="brand-copy">
+        <span className="brand-name">Artic</span>
+        {showTagline && <span className="brand-tagline">Development</span>}
       </div>
     </div>
   );
