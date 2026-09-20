@@ -1,4 +1,4 @@
-import { skillBars } from "../data";
+import { expertise } from "../data";
 import Logo from "./Logo";
 
 export default function About() {
@@ -16,7 +16,7 @@ export default function About() {
           <p>Sou o João, também conhecido como Pinguim. Fundei a Artic Development para transformar problemas de negócio em software bem construído.</p>
           <p>Há mais de 3 anos, trabalho com desenvolvimento de ponta a ponta. Aqui, você fala diretamente comigo: quem entende a sua ideia é quem cuida da entrega.</p>
           <div className="founder-principle"><span aria-hidden="true">↳</span><p>Atenção ao detalhe.<br />Responsabilidade com o combinado.</p></div>
-          <ul className="expertise-tags" aria-label="Áreas de atuação">{skillBars.map(({ label }) => <li key={label}>{label}</li>)}</ul>
+          <ul className="expertise-tags" aria-label="Áreas de atuação">{expertise.map(label => <li key={label}>{label}</li>)}</ul>
         </div>
       </div>
     </section>

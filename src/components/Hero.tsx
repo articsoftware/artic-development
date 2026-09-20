@@ -47,16 +47,21 @@ export default function Hero() {
     <section id="hero" className="hero">
       <div className="container hero-inner">
         <div className="hero-copy">
-          <p className="availability"><span /> Disponível para novos projetos</p>
+          <p className="hero-category">Desenvolvimento de software sob medida</p>
           <h1>Código que<br />não derrete<br />sob pressão.</h1>
-          <p className="hero-description">Seu próximo passo merece uma base sólida. Sites, aplicativos e sistemas feitos para o seu negócio.</p>
+          <p className="hero-description">Sites, aplicativos e sistemas para o seu negócio. Da primeira conversa à entrega, você fala com quem desenvolve.</p>
           <div className="hero-actions">
             <a href="#contato" className="button-primary">Vamos conversar <ArrowIcon /></a>
-            <a href="#servicos" className="text-link">Conheça o que fazemos <span aria-hidden="true">↓</span></a>
+            <a href="#servicos" className="text-link">Explore os serviços <span aria-hidden="true">↓</span></a>
           </div>
         </div>
         <IceFormation />
-        <div className="hero-signature"><span>Software sob medida.<br /><strong>Da ideia à entrega.</strong></span><span>Curitiba, Brasil<br /><strong>Atendimento remoto</strong></span><a href="#servicos" aria-label="Explorar serviços" className="scroll-cue">↓</a></div>
+        <div className="hero-signature">
+          <span>Contato direto.<br /><strong>Do começo ao próximo passo.</strong></span>
+          <span>Curitiba, Brasil<br /><strong>Atendimento remoto</strong></span>
+          <p className="availability"><span /> Disponível para novos projetos</p>
+          <a href="#servicos" aria-label="Explorar serviços" className="scroll-cue">↓</a>
+        </div>
       </div>
     </section>
   );
