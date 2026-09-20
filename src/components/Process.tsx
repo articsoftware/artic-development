@@ -21,7 +21,7 @@ export default function Process() {
               <div>
                 <h3>{title}</h3>
                 <p>{desc}</p>
-                <p className="step-deliverable"><span>Você recebe</span>{deliverable}</p>
+                <p className="step-deliverable"><span>Você recebe:</span> {deliverable}</p>
               </div>
             </li>
           ))}
