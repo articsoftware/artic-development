@@ -35,7 +35,6 @@
   </g>
   <!-- Wordmark -->
   <text x="90" y="46" font-family="'Syne','Segoe UI',sans-serif" font-weight="800" font-size="30" fill="url(#wm)">Artic</text>
-  <text x="188" y="46" font-family="'Syne','Segoe UI',sans-serif" font-weight="800" font-size="30" fill="#E8F4FF">Web</text>
   <!-- Tagline -->
   <text x="90" y="62" font-family="'Outfit','Segoe UI',sans-serif" font-weight="400" font-size="9.5" fill="#8BA8C4" letter-spacing="2.5">DEVELOPMENT</text>
 </svg>

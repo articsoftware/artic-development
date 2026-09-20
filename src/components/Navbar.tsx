@@ -1,56 +1,47 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Logo from "./Logo";
-import { MenuIcon, XIcon } from "./Icons";
-import { useScrolled, useScrollTo } from "../hooks";
+import { MenuIcon, XIcon, ArrowIcon } from "./Icons";
+import { useActiveSection, useScrolled } from "../hooks";
 import { navLinks } from "../data";
+
+const sectionIds = ["hero", ...navLinks.map(link => link.id)];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
   const scrolled = useScrolled();
-  const scrollTo = useScrollTo();
-  const go = (id: string) => { scrollTo(id); setMenuOpen(false); };
-
+  const activeSection = useActiveSection(sectionIds);
+  const brand = useRef<HTMLAnchorElement>(null);
+  const mobileMenu = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const desktop = window.matchMedia("(min-width: 640px)");
+    const closeOnDesktop = () => {
+      if (!desktop.matches) return;
+      if (mobileMenu.current?.contains(document.activeElement) || document.activeElement === toggle.current) {
+        brand.current?.focus({ preventScroll: true });
+      }
+      setMenuOpen(false);
+    };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setMenuOpen(false); toggle.current?.focus(); }
+    };
+    if (menuOpen) window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
+  }, [menuOpen]);
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300
-      ${scrolled ? "bg-[#080E1A]/90 backdrop-blur-xl border-b border-[#1E6FD9]/20" : "bg-transparent"}`}>
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-
-        <button onClick={() => go("hero")} className="flex items-center">
-          <Logo size="sm" />
-        </button>
-
-        <ul className="hidden md:flex gap-8 list-none">
-          {navLinks.map(({ id, label }) => (
-            <li key={id}>
-              <button onClick={() => go(id)}
-                className="text-xs uppercase tracking-widest text-[#8BA8C4] hover:text-[#38BEFF] transition-colors duration-200 font-medium">
-                {label}
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <button onClick={() => go("contato")}
-          className="hidden md:block text-xs uppercase tracking-widest border border-[#1E6FD9] text-[#38BEFF] px-5 py-2
-          hover:bg-[#1E6FD9]/20 hover:border-[#38BEFF] transition-all duration-200">
-          Fale comigo
-        </button>
-
-        <button className="md:hidden text-[#8BA8C4]" onClick={() => setMenuOpen(o => !o)}>
-          {menuOpen ? <XIcon /> : <MenuIcon />}
-        </button>
-      </div>
-
-      {menuOpen && (
-        <div className="md:hidden bg-[#0D1525] border-t border-[#1E6FD9]/20 px-6 py-6 flex flex-col gap-5">
-          {navLinks.map(({ id, label }) => (
-            <button key={id} onClick={() => go(id)}
-              className="text-sm text-[#8BA8C4] hover:text-[#38BEFF] text-left transition-colors">
-              {label}
-            </button>
-          ))}
-        </div>
-      )}
-    </nav>
+    <header className={"site-header" + (scrolled ? " is-scrolled" : "")}>
+      <a href="#main-content" className="skip-link">Pular para o conteúdo</a>
+      <nav className="container nav-inner" aria-label="Navegação principal">
+        <a ref={brand} href="#hero" aria-label="Artic Development — início" onClick={() => setMenuOpen(false)}><Logo size="md" /></a>
+        <ul className="desktop-links">{navLinks.map(({ id, label }) => <li key={id}><a href={"#" + id} aria-current={activeSection === id ? "location" : undefined}>{label}</a></li>)}</ul>
+        <a className="nav-contact" href="#contato">Vamos conversar <ArrowIcon /></a>
+        <button ref={toggle} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="mobile-menu">{menuOpen ? <XIcon /> : <MenuIcon />}</button>
+      </nav>
+      {menuOpen && <nav ref={mobileMenu} id="mobile-menu" className="mobile-menu" aria-label="Navegação mobile">{navLinks.map(({ id, label }) => <a key={id} href={"#" + id} aria-current={activeSection === id ? "location" : undefined} onClick={() => setMenuOpen(false)}>{label}<ArrowIcon /></a>)}</nav>}
+    </header>
   );
 }
