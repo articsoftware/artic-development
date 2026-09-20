@@ -194,7 +194,7 @@ h2 { font-size: clamp(34px, 3.9vw, 56px); font-weight: 600; line-height: 1.12; l
 .form-error > div { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 10px; }
 .form-error a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 
-@media (min-width: 1600px) { .hero-inner { padding-top: 168px; } .hero-copy { padding-bottom: 80px; } .ice-scene { top: 50px; right: -20px; width: 480px; } }
+@media (min-width: 1600px) { .hero-inner { padding-top: 168px; } .hero-copy { padding-bottom: 80px; } .ice-scene { top: 120px; right: -20px; width: 480px; } }
 @media (max-width: 1199px) {
   .container { width: calc(100% - 64px); }
   .hero-inner { padding-top: 144px; }
