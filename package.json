@@ -7,12 +7,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:motion": "node tests/browser/motion.mjs"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
+    "framer-motion": "^13.4.0",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "@emailjs/browser": "^4.4.1"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

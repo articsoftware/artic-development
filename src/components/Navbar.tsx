@@ -3,11 +3,14 @@ import Logo from "./Logo";
 import { MenuIcon, XIcon, ArrowIcon } from "./Icons";
 import { useActiveSection, useScrolled } from "../hooks";
 import { navLinks } from "../data";
+import { m } from "framer-motion";
+import { Disclosure, MotionLink, useUiMotion } from "./Motion";
 
 const sectionIds = ["hero", ...navLinks.map(link => link.id)];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { reduced, transition } = useUiMotion();
   const toggle = useRef<HTMLButtonElement>(null);
   const scrolled = useScrolled();
   const activeSection = useActiveSection(sectionIds);
@@ -37,11 +40,17 @@ export default function Navbar() {
       <a href="#main-content" className="skip-link">Pular para o conteúdo</a>
       <nav className="container nav-inner" aria-label="Navegação principal">
         <a ref={brand} href="#hero" aria-label="Artic Development — início" onClick={() => setMenuOpen(false)}><Logo size="md" /></a>
-        <ul className="desktop-links">{navLinks.map(({ id, label }) => <li key={id}><a href={"#" + id} aria-current={activeSection === id ? "location" : undefined}>{label}</a></li>)}</ul>
-        <a className="nav-contact" href="#contato">Vamos conversar <ArrowIcon /></a>
-        <button ref={toggle} className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="mobile-menu">{menuOpen ? <XIcon /> : <MenuIcon />}</button>
+        <ul className="desktop-links">{navLinks.map(({ id, label }) => <li key={id}><MotionLink href={"#" + id} aria-current={activeSection === id ? "location" : undefined}>{label}<m.span className="nav-indicator" aria-hidden="true" initial={false} animate={{ scaleX: activeSection === id ? 1 : 0 }} transition={transition(0.2)} /></MotionLink></li>)}</ul>
+        <MotionLink className="nav-contact" href="#contato">Vamos conversar <ArrowIcon /></MotionLink>
+        <m.button ref={toggle} className="menu-toggle" whileTap={reduced ? undefined : { scale: 0.94 }} transition={transition(0.12)} onClick={() => setMenuOpen(previous => !previous)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} aria-controls="mobile-menu">{menuOpen ? <XIcon /> : <MenuIcon />}</m.button>
       </nav>
-      {menuOpen && <nav ref={mobileMenu} id="mobile-menu" className="mobile-menu" aria-label="Navegação mobile">{navLinks.map(({ id, label }) => <a key={id} href={"#" + id} aria-current={activeSection === id ? "location" : undefined} onClick={() => setMenuOpen(false)}>{label}<ArrowIcon /></a>)}</nav>}
+      <Disclosure open={menuOpen} id="mobile-menu" className="mobile-menu-shell">
+        <nav ref={mobileMenu} className="mobile-menu" aria-label="Navegação mobile">{navLinks.map(({ id, label }) => <a key={id} href={"#" + id} aria-current={activeSection === id ? "location" : undefined} onClick={() => {
+          setMenuOpen(false);
+          const section = document.getElementById(id);
+          if (section) { section.tabIndex = -1; section.focus({ preventScroll: true }); }
+        }}>{label}<ArrowIcon /></a>)}</nav>
+      </Disclosure>
     </header>
   );
 }
