@@ -8,6 +8,7 @@ import Contact  from "./components/Contact";
 import Footer   from "./components/Footer";
 import FAQ from "./components/FAQ";
 import type { ServiceRequest } from "./types";
+import { SiteMotion } from "./components/Motion";
 
 export default function App() {
   const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null);
@@ -15,7 +16,7 @@ export default function App() {
     setServiceRequest(previous => ({ value, requestId: (previous?.requestId ?? 0) + 1 }));
   };
   return (
-    <div className="site-shell">
+    <SiteMotion><div className="site-shell">
       <Navbar />
       <main id="main-content" tabIndex={-1}>
         <Hero />
@@ -26,6 +27,6 @@ export default function App() {
         <Contact serviceRequest={serviceRequest} />
       </main>
       <Footer />
-    </div>
+    </div></SiteMotion>
   );
 }

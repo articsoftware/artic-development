@@ -4,10 +4,13 @@ import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from "../
 import { budgetOptions, contactItems, services, socialLinks } from "../data";
 import { contactIcons, CheckIcon, ArrowIcon } from "./Icons";
 import type { ServiceRequest } from "../types";
+import { m } from "framer-motion";
+import { Disclosure, DisclosureIcon, MotionLink, Reveal, useUiMotion } from "./Motion";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
 export default function Contact({ serviceRequest }: { serviceRequest: ServiceRequest | null }) {
+  const { reduced, transition } = useUiMotion();
   const formRef = useRef<HTMLFormElement>(null);
   const successRef = useRef<HTMLHeadingElement>(null);
   const serviceRef = useRef<HTMLSelectElement>(null);
@@ -16,6 +19,8 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
   const submitting = useRef(false);
   const [status, setStatus] = useState<FormStatus>("idle");
   const [selectedService, setSelectedService] = useState("");
+  const [budgetOpen, setBudgetOpen] = useState(false);
+  const [budget, setBudget] = useState("");
 
   useEffect(() => {
     if (!serviceRequest) return;
@@ -50,6 +55,8 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
 
   const resetForm = () => {
     setSelectedService("");
+    setBudget("");
+    setBudgetOpen(false);
     focusName.current = true;
     setStatus("idle");
   };
@@ -57,7 +64,7 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
   return (
     <section id="contato" className="section contact-section" aria-labelledby="contact-title">
       <div className="container contact-grid">
-        <div className="contact-copy">
+        <Reveal className="contact-copy">
           <p className="section-label">Toda construção começa aqui</p>
           <h2 id="contact-title">Qual é a sua<br />próxima ideia?</h2>
           <p>Conte o que você quer transformar.<br />Vamos encontrar o caminho para fazer acontecer.</p>
@@ -65,28 +72,29 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
             {contactItems.map(({ icon, label, value, href }) => (
               <div key={label} className="contact-method">
                 <span aria-hidden="true">{contactIcons[icon]}</span>
-                <div><span>{label}</span>{href ? <a href={href}>{value}</a> : <p>{value}</p>}</div>
+                <div><span>{label}</span>{href ? <MotionLink href={href}>{value}</MotionLink> : <p>{value}</p>}</div>
               </div>
             ))}
           </div>
-          <a className="contact-social text-link" href={socialLinks.instagram} target="_blank" rel="noreferrer">
+          <MotionLink className="contact-social text-link" href={socialLinks.instagram} target="_blank" rel="noreferrer">
             Conheça a Artic no Instagram <span aria-hidden="true">↗</span>
-          </a>
-        </div>
+          </MotionLink>
+        </Reveal>
         <div className="contact-form-panel">
           {status === "success" ? (
-            <div className="form-success">
+            <m.div className="form-success" initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={transition(0.24)}>
               <span aria-hidden="true"><CheckIcon /></span>
               <h3 ref={successRef} tabIndex={-1}>Conversa iniciada.</h3>
               <p>Recebi sua mensagem. Retorno em até 24 horas para falar sobre a sua ideia.</p>
-              <button className="button-secondary" onClick={resetForm}>Enviar outra mensagem</button>
-            </div>
+              <m.button className="button-secondary" onClick={resetForm} whileTap={reduced ? undefined : { scale: 0.98 }} transition={transition(0.12)}>Enviar outra mensagem</m.button>
+            </m.div>
           ) : (
             <>
               <div className="form-heading">
                 <h3>Vamos construir juntos.</h3>
                 <p>Análise inicial gratuita. Retorno em até 24h.</p>
               </div>
+              <span className="sr-only" role="status">{status === "loading" ? "Enviando mensagem. Aguarde." : ""}</span>
               <form ref={formRef} onSubmit={handleSubmit} aria-busy={status === "loading"}>
                 <p className="form-required-note">Os campos com * são obrigatórios.</p>
                 <div className="form-row">
@@ -111,25 +119,32 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
                   <label htmlFor="contact-message">Conte um pouco sobre a ideia <span aria-hidden="true">*</span></label>
                   <textarea id="contact-message" name="message" rows={4} required placeholder="O que você quer construir ou melhorar?" />
                 </div>
-                <details className="form-options">
-                  <summary>Detalhes opcionais <span>Investimento estimado</span></summary>
+                <div className="form-options">
+                  <input type="hidden" name="budget" value={budget} />
+                  <button type="button" className="form-options-trigger" id="budget-trigger" aria-expanded={budgetOpen} aria-controls="budget-panel" onClick={() => setBudgetOpen(previous => !previous)}>
+                    <span>Detalhes opcionais <span>Investimento estimado</span></span><DisclosureIcon open={budgetOpen} />
+                  </button>
+                  <Disclosure open={budgetOpen} id="budget-panel" labelledBy="budget-trigger">
                   <div className="form-field">
                     <label htmlFor="contact-budget">Qual faixa você tem em mente?</label>
-                    <select id="contact-budget" name="budget" defaultValue="">
+                    <select id="contact-budget" value={budget} onChange={event => setBudget(event.target.value)}>
                       <option value="">Prefiro conversar primeiro</option>
                       {budgetOptions.map(option => <option key={option}>{option}</option>)}
                     </select>
                   </div>
-                </details>
+                  </Disclosure>
+                </div>
                 {status === "error" && (
-                  <div className="form-error" role="alert">
+                  <m.div className="form-error" role="alert" initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={transition(0.16)}>
                     <p>Não foi possível enviar. Seus dados continuam aqui para tentar novamente.</p>
                     <div>{contactItems.filter(item => item.href).map(({ label, href }) => <a key={label} href={href}>Falar por {label}</a>)}</div>
-                  </div>
+                  </m.div>
                 )}
-                <button className="button-primary form-submit" type="submit" disabled={status === "loading"}>
-                  {status === "loading" ? "Enviando mensagem..." : "Enviar mensagem"}<ArrowIcon />
-                </button>
+                <m.button className="button-primary form-submit" type="submit" disabled={status === "loading"}
+                  whileTap={reduced || status === "loading" ? undefined : { scale: 0.985 }} transition={transition(0.12)}>
+                  {status === "loading" ? "Enviando mensagem..." : "Enviar mensagem"}
+                  {status === "loading" ? <span className="submit-spinner" aria-hidden="true" /> : <ArrowIcon />}
+                </m.button>
                 <p className="form-note">Sem compromisso. Só uma boa conversa sobre o seu projeto.</p>
               </form>
             </>

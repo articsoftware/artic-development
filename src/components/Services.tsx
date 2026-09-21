@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Disclosure, DisclosureIcon, MotionLink } from "./Motion";
 import { services } from "../data";
 import { serviceIcons, ArrowIcon, CheckIcon } from "./Icons";
 
@@ -20,16 +21,19 @@ export default function Services({ onSelectService }: { onSelectService: (value:
               <p className="solution-description">{desc}</p>
               <ul className="service-tags" aria-label="Tecnologias">{tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
               <button className="solution-expand" id={"service-trigger-" + id} aria-expanded={active === id} aria-controls={"service-panel-" + id} onClick={() => setActive(active === id ? null : id)}>
-                Ver possibilidades <span aria-hidden="true">{active === id ? "−" : "+"}</span>
+                {active === id ? "Fechar possibilidades" : "Ver possibilidades"}
+                <DisclosureIcon open={active === id} />
               </button>
-              <div className="solution-detail" id={"service-panel-" + id} role="region" aria-labelledby={"service-title-" + id} hidden={active !== id}>
+              <Disclosure open={active === id} id={"service-panel-" + id} labelledBy={"service-title-" + id}>
+              <div className="solution-detail">
                 <ul>{examples.map(example => <li key={example}><span aria-hidden="true"><CheckIcon /></span>{example}</li>)}</ul>
-                <a href="#contato" className="text-link" onClick={() => onSelectService(formLabel)}>Conversar sobre este serviço <ArrowIcon /></a>
+                <MotionLink href="#contato" className="text-link" onClick={() => onSelectService(formLabel)}>Conversar sobre este serviço <ArrowIcon /></MotionLink>
               </div>
+              </Disclosure>
             </article>
           ))}
         </div>
-        <div className="services-invite"><p>Não sabe qual solução faz mais sentido?</p><a href="#contato" className="text-link">Vamos descobrir juntos <ArrowIcon /></a></div>
+        <div className="services-invite"><p>Não sabe qual solução faz mais sentido?</p><MotionLink href="#contato" className="text-link">Vamos descobrir juntos <ArrowIcon /></MotionLink></div>
       </div>
     </section>
   );
