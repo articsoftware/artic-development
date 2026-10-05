@@ -10,23 +10,29 @@ import FAQ from "./components/FAQ";
 import type { ServiceRequest } from "./types";
 import { SiteMotion } from "./components/Motion";
 
+import FloatingCTA from "./components/FloatingCTA";
+
 export default function App() {
   const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null);
   const selectService = (value: string) => {
     setServiceRequest(previous => ({ value, requestId: (previous?.requestId ?? 0) + 1 }));
   };
   return (
-    <SiteMotion><div className="site-shell">
-      <Navbar />
-      <main id="main-content" tabIndex={-1}>
-        <Hero />
-        <Services onSelectService={selectService} />
-        <About />
-        <Process />
-        <FAQ />
-        <Contact serviceRequest={serviceRequest} />
-      </main>
-      <Footer />
-    </div></SiteMotion>
+    <SiteMotion>
+      <div className="site-shell">
+        <div className="scroll-progress" aria-hidden="true" />
+        <Navbar />
+        <main id="main-content" tabIndex={-1}>
+          <Hero />
+          <Services onSelectService={selectService} />
+          <About />
+          <Process />
+          <FAQ />
+          <Contact serviceRequest={serviceRequest} />
+        </main>
+        <Footer />
+      </div>
+      <FloatingCTA />
+    </SiteMotion>
   );
 }

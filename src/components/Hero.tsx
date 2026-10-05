@@ -7,6 +7,8 @@ export default function Hero() {
   const { reduced, transition } = useUiMotion();
   return (
     <section id="hero" className="hero" aria-labelledby="hero-title">
+      <img className="hero-bg" src={landscape} alt="" width={2172} height={724} fetchPriority="high" />
+      <div className="hero-overlay" />
       <div className="container">
         <m.div className="hero-intro" initial={reduced ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={transition(0.45)}>
           <div>
@@ -19,18 +21,14 @@ export default function Hero() {
             <span className="hero-location">De Curitiba para onde sua ideia estiver.</span>
           </div>
         </m.div>
-        <div className="horizon-panel">
-          <img className="horizon-landscape" src={landscape} alt="" width={2172} height={724} fetchPriority="high" />
-          <div className="horizon-title">
-            <h2>Uma boa experiência.<br />Uma base sólida.</h2>
-            <p>Design, tecnologia e cuidado em cada camada do seu projeto.</p>
-            <MotionLink className="horizon-link" href="#servicos">Conheça nossas soluções <ArrowIcon /></MotionLink>
-          </div>
-        </div>
         <div className="hero-foot">
           <p><span className="status-dot" /> Disponível para novos projetos</p>
           <p>Conversa direta. Desenvolvimento próximo.</p>
         </div>
+      </div>
+      <div className="scroll-indicator" aria-hidden="true">
+        <span>SCROLL</span>
+        <div className="scroll-chevron" />
       </div>
     </section>
   );
