@@ -1,8 +1,9 @@
-import type { Service, Step, FAQItem, ContactItem, NavLink } from "../types";
+import type { Service, ServiceLayer, Step, FAQItem, ContactItem, NavLink } from "../types";
 
 export const services: Service[] = [
   {
     id: "web",
+    layer: "surface",
     title: "Sites & Sistemas Web",
     summary: "Uma presença melhor. Uma operação mais simples.",
     formLabel: "Site ou sistema web",
@@ -12,6 +13,7 @@ export const services: Service[] = [
   },
   {
     id: "mobile",
+    layer: "surface",
     title: "Apps Mobile",
     summary: "Seu serviço mais perto de quem usa.",
     formLabel: "App mobile",
@@ -21,6 +23,7 @@ export const services: Service[] = [
   },
   {
     id: "api",
+    layer: "depth",
     title: "APIs & Back-end",
     summary: "A estrutura para conectar e crescer.",
     formLabel: "API / Back-end",
@@ -30,6 +33,7 @@ export const services: Service[] = [
   },
   {
     id: "auto",
+    layer: "depth",
     title: "Automações & Integrações",
     summary: "Menos tarefas manuais. Mais tempo para o negócio.",
     formLabel: "Automações e integrações",
@@ -39,6 +43,7 @@ export const services: Service[] = [
   },
   {
     id: "process",
+    layer: "depth",
     title: "Otimização de Processos",
     summary: "Clareza para encontrar e resolver gargalos.",
     formLabel: "Otimização de processos",
@@ -47,6 +52,13 @@ export const services: Service[] = [
     tags: ["Análise", "Consultoria", "BPM", "Dashboards"],
   },
 ];
+
+export const serviceLayers: ServiceLayer[] = [
+  { id: "surface", index: "01", label: "Na superfície", title: "O que as pessoas usam", desc: "A parte que seus clientes e sua equipe veem e tocam todos os dias." },
+  { id: "depth",   index: "02", label: "Abaixo da superfície", title: "O que sustenta a operação", desc: "A estrutura que conecta sistemas, organiza dados e tira tarefas repetitivas do caminho." },
+];
+
+export const heroFacts = ["Disponível para novos projetos", "Conversa direta com quem desenvolve", "Curitiba, PR · atendimento remoto"];
 
 export const steps: Step[] = [
   { num: "01", title: "Descoberta", desc: "Uma conversa para entender o negócio, o problema e o que realmente importa.", deliverable: "Objetivos e prioridades definidos" },

@@ -1,11 +1,23 @@
+export type ServiceLayerId = "surface" | "depth";
+
 export interface Service {
   id: string;
+  /** "surface": o que as pessoas usam; "depth": o que sustenta a operação. */
+  layer: ServiceLayerId;
   title: string;
   summary: string;
   desc: string;
   tags: string[];
   examples: string[];
   formLabel: string;
+}
+
+export interface ServiceLayer {
+  id: ServiceLayerId;
+  index: string;
+  label: string;
+  title: string;
+  desc: string;
 }
 
 export interface Step {

@@ -1,13 +1,20 @@
 import assert from 'node:assert/strict';
 
-// Run with PLAYWRIGHT_MODULE pointing to an installed Playwright ESM entrypoint.
-const { chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright');
+// Run with Playwright (or fallback to system Playwright installation).
+let chromium;
+try {
+  ({ chromium } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright'));
+} catch {
+  ({ chromium } = await import('/home/pinguas/Documentos/codes/oficinaflow/node_modules/playwright-core/index.mjs'));
+}
+
 const browser = await chromium.launch({
-  ...(process.env.BROWSER_PATH ? { executablePath: process.env.BROWSER_PATH } : {}),
+  executablePath: process.env.BROWSER_PATH || '/usr/bin/google-chrome',
   headless: true,
   args: ['--no-sandbox'],
 });
 const baseURL = process.env.TEST_URL || 'http://127.0.0.1:5174';
+
 try {
   for (const reducedMotion of ['no-preference', 'reduce']) {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion });
@@ -16,6 +23,7 @@ try {
     let responseStatus = 500;
     let requests = 0;
     let submittedBudget = '';
+
     await page.route('https://api.emailjs.com/**', async route => {
       requests++;
       const body = route.request().postData() || '';
@@ -23,21 +31,16 @@ try {
       await new Promise(resolve => setTimeout(resolve, 500));
       await route.fulfill({ status: responseStatus, contentType: 'text/plain', body: responseStatus === 200 ? 'OK' : 'Simulated error' });
     });
+
     await page.goto(baseURL, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
-    const trigger = page.locator('#service-trigger-web');
-    const panel = page.locator('#service-panel-web');
+
+    // Verify responsiveness across viewports
     for (const width of [1440, 768, 390, 320]) {
       await page.setViewportSize({ width, height: 1000 });
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      await trigger.click();
-      await page.waitForFunction(() => document.querySelector('#service-panel-web > div')?.style.height === 'auto');
-      assert.equal(await trigger.getAttribute('aria-expanded'), 'true');
-      assert.equal(await panel.evaluate(node => node.inert), false);
-      assert.ok((await panel.boundingBox()).height > 100);
-      await trigger.click();
-      assert.equal(await panel.evaluate(node => node.inert), true);
-      await page.waitForFunction(() => document.querySelector('#service-panel-web').children.length === 0);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Horizontal overflow at ${width}px`);
+
+      // Test FAQ accordion at each width
       const question = page.locator('#faq-trigger-0');
       await question.scrollIntoViewIfNeeded();
       await question.focus();
@@ -49,25 +52,22 @@ try {
       await page.waitForFunction(() => document.querySelector('#faq-panel-0').children.length === 0);
       assert.equal(await question.getAttribute('aria-expanded'), 'false');
       assert.equal(await question.evaluate(node => getComputedStyle(node).outlineStyle), 'solid');
-      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
-      console.log(`${reducedMotion}: services/layout ${width}px OK`);
+
+      console.log(`${reducedMotion}: FAQ/layout ${width}px OK`);
     }
-    // Interrupt an opening and closing before either has completed.
-    for (let i = 0; i < 3; i++) {
-      await trigger.dispatchEvent('click');
-      await page.waitForTimeout(35);
-    }
-    await page.waitForFunction(() => document.querySelector('#service-panel-web > div')?.style.height === 'auto');
-    assert.equal(await panel.evaluate(node => node.inert), false);
-    await panel.locator('a').click();
+
+    // Test service selection CTA link
+    const serviceCta = page.locator('#service-cta-web');
+    await serviceCta.scrollIntoViewIfNeeded();
+    await serviceCta.click();
     await page.waitForFunction(() => document.querySelector('#contact-service').value !== '');
     assert.notEqual(await page.locator('#contact-service').inputValue(), '');
     await page.waitForFunction(() => document.activeElement.id === 'contact-service');
     assert.equal(await page.evaluate(() => document.activeElement.id), 'contact-service');
-    await trigger.click();
-    await page.waitForFunction(() => document.querySelector('#service-panel-web').children.length === 0);
 
+    // Test Mobile Menu
     await page.evaluate(() => window.scrollTo(0, 0));
+    await page.setViewportSize({ width: 390, height: 844 });
     const menu = page.locator('.menu-toggle');
     await menu.click();
     await page.waitForFunction(() => document.querySelector('#mobile-menu > div')?.style.height === 'auto');
@@ -88,13 +88,14 @@ try {
     await page.waitForFunction(() => document.querySelector('#mobile-menu').children.length === 0);
     assert.equal(await page.evaluate(() => document.activeElement.getAttribute('href')), '#hero');
 
-    // FAQ allows several answers, preserving the previous native-details behavior.
+    // FAQ allows multiple answers simultaneously
     await page.locator('#faq-trigger-0').click();
     await page.locator('#faq-trigger-1').click();
     assert.equal(await page.locator('.faq-trigger[aria-expanded="true"]').count(), 2);
     await page.locator('#faq-trigger-0').click();
     await page.locator('#faq-trigger-1').click();
 
+    // Contact form budget toggle and persistence
     await page.locator('#budget-trigger').click();
     await page.waitForFunction(() => document.querySelector('#budget-panel > div')?.style.height === 'auto');
     submittedBudget = await page.locator('#contact-budget option').nth(1).textContent();
@@ -106,6 +107,7 @@ try {
     await page.locator('#budget-trigger').click();
     await page.waitForFunction(() => document.querySelector('#budget-panel').children.length === 0);
 
+    // Form submission flow
     await page.locator('#contact-name').fill('Teste automatizado');
     await page.locator('#contact-email').fill('teste@example.com');
     await page.locator('#contact-message').fill('Mensagem simulada, sem envio real.');
@@ -126,15 +128,14 @@ try {
     assert.equal(await page.locator('input[name="budget"]').inputValue(), '');
     assert.equal(requests, 2);
     assert.deepEqual(errors, []);
+
+    // Scroll reveal and back-to-top verification
     for (const width of [1440, 390, 320]) {
       await page.setViewportSize({ width, height: 1000 });
-      for (const selector of ['.about-heading', '.process-steps', '.faq-list', '.contact-copy', '.site-footer']) {
+      for (const selector of ['.about-statement', '.steps', '.faq-list', '.contact-copy', '.site-footer']) {
         await page.locator(selector).scrollIntoViewIfNeeded();
-        if (selector === '.about-heading' || selector === '.contact-copy') {
+        if (selector === '.about-statement' || selector === '.contact-copy') {
           await page.waitForFunction(selector => getComputedStyle(document.querySelector(selector)).opacity === '1', selector);
-        }
-        if (reducedMotion === 'no-preference' && width !== 320) {
-          await page.locator(selector).screenshot({ path: `/tmp/artic-full-${width}-${selector.slice(1)}.png` });
         }
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
       }
@@ -142,10 +143,8 @@ try {
       await page.locator('.back-to-top').click();
       await page.waitForFunction(() => document.activeElement.id === 'hero-title');
     }
-    await page.setViewportSize({ width: 1440, height: 1000 });
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await page.screenshot({ path: `/tmp/artic-motion-${reducedMotion}.png` });
-    console.log(`${reducedMotion}: rapid toggles, menu, focus and simulated form OK`);
+
+    console.log(`${reducedMotion}: all tests and flows OK`);
     await page.close();
   }
 } finally {
