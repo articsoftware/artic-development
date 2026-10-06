@@ -1,5 +1,6 @@
 import { ArrowIcon } from "./Icons";
 import iceberg from "../assets/arctic-landscape-v1.webp";
+import heroVideo from "../assets/hero-iceberg.mp4";
 import { m } from "framer-motion";
 import { MotionLink, useUiMotion } from "./Motion";
 import { contactItems, heroFacts } from "../data";
@@ -17,7 +18,11 @@ export default function Hero() {
   return (
     <section id="hero" className="hero" aria-labelledby="hero-title">
       <div className="hero-media" aria-hidden="true">
-        <img src={iceberg} alt="" width={2172} height={724} decoding="async" {...{ fetchpriority: "high" }} />
+        {reduced ? (
+          <img src={iceberg} alt="" width={2172} height={724} decoding="async" {...{ fetchpriority: "high" }} />
+        ) : (
+          <video src={heroVideo} poster={iceberg} autoPlay loop muted playsInline />
+        )}
       </div>
 
       <div className="container hero-layout">
