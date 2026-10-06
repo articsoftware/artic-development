@@ -20,6 +20,7 @@ export default function App() {
   return (
     <SiteMotion>
       <div className="site-shell">
+        <div className="scroll-progress" aria-hidden="true" />
         <Navbar />
         <main id="main-content" tabIndex={-1}>
           <Hero />
