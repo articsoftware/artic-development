@@ -11,7 +11,7 @@ const Svg = ({ children, size = 24, sw = 1.5, className = "" }: SvgProps) => (
 interface SzProps { size?: number; }
 
 export const MonitorIcon = ({ size = 40 }: SzProps) => <Svg size={size}><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4M9 10l3 3 3-3"/></Svg>;
-export const MobileIcon  = ({ size = 40 }: SzProps) => <Svg size={size}><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 18v.5"/></Svg>;
+export const MobileIcon  = ({ size = 40 }: SzProps) => <Svg size={size}><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4"/><circle cx="12" cy="18" r="1" fill="currentColor"/></Svg>;
 export const ApiIcon     = ({ size = 40 }: SzProps) => <Svg size={size}><path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 6v12M16 6v12"/></Svg>;
 export const AutoIcon    = ({ size = 40 }: SzProps) => <Svg size={size}><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></Svg>;
 export const ChartIcon   = ({ size = 40 }: SzProps) => <Svg size={size}><path d="M3 3v18h18"/><path d="M7 16l4-8 4 6 3-4"/></Svg>;

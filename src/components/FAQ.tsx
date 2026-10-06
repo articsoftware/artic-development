@@ -13,8 +13,8 @@ export default function FAQ() {
     <section id="duvidas" className="section faq-section" aria-labelledby="faq-title">
       <div className="container faq-layout">
         <div className="faq-intro">
-          <p className="section-label">Antes de começar</p>
-          <h2 id="faq-title">Vamos tirar<br />as dúvidas?</h2>
+          <p className="eyebrow">Antes de começar</p>
+          <h2 id="faq-title">Vamos tirar as dúvidas?</h2>
           <p>Você não precisa chegar com todas as respostas. O primeiro passo é conversar.</p>
           <MotionLink className="text-link" href="#contato">Tenho outra pergunta <span aria-hidden="true">↗</span></MotionLink>
         </div>

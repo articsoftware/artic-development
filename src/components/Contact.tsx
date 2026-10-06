@@ -65,8 +65,8 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
     <section id="contato" className="section contact-section" aria-labelledby="contact-title">
       <div className="container contact-grid">
         <Reveal className="contact-copy">
-          <p className="section-label">Toda construção começa aqui</p>
-          <h2 id="contact-title">Qual é a sua<br />próxima ideia?</h2>
+          <p className="eyebrow">Toda construção começa aqui</p>
+          <h2 id="contact-title">Qual é a sua<br />próxima <em>ideia</em>?</h2>
           <p>Conte o que você quer transformar.<br />Vamos encontrar o caminho para fazer acontecer.</p>
           <div className="contact-methods">
             {contactItems.map(({ icon, label, value, href }) => (

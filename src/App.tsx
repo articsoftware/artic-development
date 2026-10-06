@@ -6,10 +6,9 @@ import About    from "./components/About";
 import Process  from "./components/Process";
 import Contact  from "./components/Contact";
 import Footer   from "./components/Footer";
-import FAQ from "./components/FAQ";
+import FAQ      from "./components/FAQ";
 import type { ServiceRequest } from "./types";
 import { SiteMotion } from "./components/Motion";
-
 import FloatingCTA from "./components/FloatingCTA";
 
 export default function App() {
@@ -17,6 +16,7 @@ export default function App() {
   const selectService = (value: string) => {
     setServiceRequest(previous => ({ value, requestId: (previous?.requestId ?? 0) + 1 }));
   };
+
   return (
     <SiteMotion>
       <div className="site-shell">
