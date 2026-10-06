@@ -58,7 +58,7 @@ export const serviceLayers: ServiceLayer[] = [
   { id: "depth",   index: "02", label: "Abaixo da superfície", title: "O que sustenta a operação", desc: "A estrutura que conecta sistemas, organiza dados e tira tarefas repetitivas do caminho." },
 ];
 
-export const heroFacts = ["Disponível para novos projetos", "Conversa direta com quem desenvolve", "Curitiba, PR · atendimento remoto"];
+export const heroFacts = ["Disponível para novos projetos", "Conversa direta com quem desenvolve", "Curitiba, PR · Atendimento Remoto em todo o Brasil"];
 
 export const steps: Step[] = [
   { num: "01", title: "Descoberta", desc: "Uma conversa para entender o negócio, o problema e o que realmente importa.", deliverable: "Objetivos e prioridades definidos" },

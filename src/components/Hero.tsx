@@ -22,7 +22,7 @@ export default function Hero() {
 
       <div className="container hero-layout">
         <m.div className="hero-above" {...enter(0)}>
-          <p className="eyebrow">Artic Development · software sob medida</p>
+          <p className="eyebrow">Artic Development · Software Sob Medida</p>
           <h1 id="hero-title">Ideias à frente.<br /> Software à <em>altura</em>.</h1>
         </m.div>
 
