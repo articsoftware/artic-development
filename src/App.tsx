@@ -1,8 +1,6 @@
 import { useState } from "react";
 import Navbar   from "./components/Navbar";
 import Hero     from "./components/Hero";
-import Marquee  from "./components/Marquee";
-import Metrics  from "./components/Metrics";
 import Services from "./components/Services";
 import About    from "./components/About";
 import Process  from "./components/Process";
@@ -26,8 +24,6 @@ export default function App() {
         <Navbar />
         <main id="main-content" tabIndex={-1}>
           <Hero />
-          <Marquee />
-          <Metrics />
           <Services onSelectService={selectService} />
           <About />
           <Process />
