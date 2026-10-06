@@ -20,15 +20,9 @@ export default function Hero() {
         <img src={iceberg} alt="" width={2172} height={724} decoding="async" {...{ fetchpriority: "high" }} />
       </div>
 
-      <div className="hero-brand-backdrop" aria-hidden="true">
-        <span>ARTIC</span>
-      </div>
-
       <div className="container hero-layout">
         <m.div className="hero-above" {...enter(0)}>
-          <div className="hero-badge-wrap">
-            <span className="hero-badge">CURITIBA · SOFTWARE SOB MEDIDA</span>
-          </div>
+          <p className="eyebrow">Artic Development · software sob medida</p>
           <h1 id="hero-title">Ideias à frente.<br /> Software à <em>altura</em>.</h1>
         </m.div>
 
