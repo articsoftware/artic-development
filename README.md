@@ -106,7 +106,7 @@ npm run build
 ## 📱 Contato
 
 - Instagram: [@articweb.development](https://www.instagram.com/articweb.development/)
-- E-mail: articdevelopmentltda@gmail.com
+- E-mail: contato@articdevelopment.com.br
 - WhatsApp: +55 (41) 99102-1471
 
 ---
