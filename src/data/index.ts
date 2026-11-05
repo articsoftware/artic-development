@@ -71,7 +71,7 @@ export const steps: Step[] = [
 export const expertise = ["Front-end / UX", "Back-end / APIs", "Mobile", "Cloud & DevOps"];
 
 export const contactItems: ContactItem[] = [
-  { icon: "mail",  label: "E-mail",      value: "articdevelopmentltda@gmail.com", href: "mailto:articdevelopmentltda@gmail.com" },
+  { icon: "mail",  label: "E-mail",      value: "contato@articdevelopment.com.br", href: "mailto:contato@articdevelopment.com.br" },
   { icon: "phone", label: "WhatsApp",    value: "+55 (41) 99102-1471", href: "https://wa.me/5541991021471" },
   { icon: "pin",   label: "Localização", value: "Curitiba, PR — Brasil & Remoto" },
 ];
