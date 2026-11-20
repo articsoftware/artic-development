@@ -1,36 +1,185 @@
-import { ArrowIcon } from "./Icons";
-import iceberg from "../assets/arctic-landscape-v1.webp";
-import { m } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, m } from "framer-motion";
+import { ArrowIcon, ArrowUpRightIcon, CheckIcon, LayersIcon, SparkIcon } from "./Icons";
+import Logo from "./Logo";
+import heroGlacier from "../assets/hero-obsidian-glacier.webp";
 import { MotionLink, useUiMotion } from "./Motion";
-import { contactItems, heroFacts } from "../data";
+import { contactItems, heroBlueprints, heroFacts } from "../data";
 
 const whatsapp = contactItems.find(item => item.icon === "phone")?.href;
 
 export default function Hero() {
   const { reduced, transition } = useUiMotion();
+  const [activeId, setActiveId] = useState(heroBlueprints[0].id);
+  const current = heroBlueprints.find(item => item.id === activeId) ?? heroBlueprints[0];
+
   const enter = (delay: number) => ({
-    initial: reduced ? false : { opacity: 0, y: 14 },
+    initial: reduced ? false : { opacity: 0, y: 18 },
     animate: { opacity: 1, y: 0 },
-    transition: { ...transition(0.55), delay: reduced ? 0 : delay },
+    transition: { ...transition(0.65), delay: reduced ? 0 : delay },
   });
 
   return (
     <section id="hero" className="hero" aria-labelledby="hero-title">
       <div className="hero-media" aria-hidden="true">
-        <img src={iceberg} alt="" width={2172} height={724} decoding="async" {...{ fetchpriority: "high" }} />
+        <img
+          src={heroGlacier}
+          alt=""
+          width={1376}
+          height={768}
+          decoding="async"
+          {...{ fetchpriority: "high" }}
+        />
+        <div className="hero-vignette" />
       </div>
 
-      <div className="container hero-layout">
-        <m.div className="hero-above" {...enter(0)}>
-          <p className="eyebrow">Artic Development · Software Sob Medida</p>
-          <h1 id="hero-title">Ideias à frente.<br /> Software à <em>altura</em>.</h1>
+      <div className="container hero-inner">
+        <m.div className="hero-header" {...enter(0)}>
+          <div className="pill-badge pill-badge-dark">
+            <span className="status-dot" aria-hidden="true" />
+            <span>ARTIC DEVELOPMENT · SOFTWARE SOB MEDIDA</span>
+          </div>
+
+          <h1 id="hero-title" className="hero-title">
+            Ideias à frente.
+            <br />
+            Software <em>à altura</em>.
+          </h1>
+
+          <p className="hero-lede">
+            Projetamos sites, aplicativos e sistemas que elevam o padrão da sua marca — com as APIs, integrações e automações que sustentam toda a operação.
+          </p>
+
+          <div className="hero-actions">
+            <MotionLink href="#contato" className="button button-ivory">
+              <span>Agendar conversa estratégica</span>
+              <ArrowIcon />
+            </MotionLink>
+            {whatsapp && (
+              <MotionLink
+                href={whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button button-obsidian-ghost"
+              >
+                <span>Falar no WhatsApp</span>
+                <ArrowUpRightIcon />
+              </MotionLink>
+            )}
+          </div>
         </m.div>
 
-        <m.div className="hero-below" {...enter(0.12)}>
-          <p className="hero-lede">Sites, aplicativos e sistemas que as pessoas usam — e as APIs, integrações e automações que sustentam tudo por baixo.</p>
-          <div className="hero-actions">
-            <MotionLink href="#contato" className="button button-light">Vamos construir juntos <ArrowIcon /></MotionLink>
-            {whatsapp && <MotionLink href={whatsapp} target="_blank" rel="noreferrer" className="button button-ghost">Falar no WhatsApp</MotionLink>}
+        <m.div className="hero-stage" {...enter(0.16)}>
+          <div className="hero-callout hero-callout-left" aria-hidden="true">
+            <span className="callout-icon"><LayersIcon size={14} /></span>
+            <span>Engenharia Ponta a Ponta</span>
+          </div>
+
+          <div className="hero-callout hero-callout-right" aria-hidden="true">
+            <span className="callout-icon"><SparkIcon size={12} /></span>
+            <span>Direto com o Fundador</span>
+          </div>
+
+          <div className="studio-window" aria-label="Prévia da arquitetura de entrega Artic">
+            <div className="studio-topbar">
+              <div className="studio-brand-pill">
+                <Logo size="sm" iconOnly />
+                <span className="studio-path">{current.path}</span>
+              </div>
+              <div className="studio-status-pill">
+                <span className="studio-status-dot" aria-hidden="true" />
+                <span>{current.status}</span>
+              </div>
+            </div>
+
+            <div className="studio-body">
+              <aside className="studio-sidebar" aria-label="Camadas de engenharia">
+                <p className="studio-sidebar-label">CAMADAS</p>
+                <div className="studio-tabs" role="tablist" aria-label="Especialidades técnicas">
+                  {heroBlueprints.map(blueprint => {
+                    const selected = blueprint.id === current.id;
+                    return (
+                      <button
+                        key={blueprint.id}
+                        type="button"
+                        role="tab"
+                        aria-selected={selected}
+                        aria-controls={`blueprint-panel-${blueprint.id}`}
+                        id={`blueprint-tab-${blueprint.id}`}
+                        className={"studio-tab" + (selected ? " is-active" : "")}
+                        onClick={() => setActiveId(blueprint.id)}
+                      >
+                        <span className="studio-tab-dot" aria-hidden="true" />
+                        <span>{blueprint.tab}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="studio-sidebar-meta">
+                  <span>SEDE</span>
+                  <p>Curitiba, PR · Remoto</p>
+                </div>
+              </aside>
+
+              <div
+                className="studio-canvas"
+                role="tabpanel"
+                id={`blueprint-panel-${current.id}`}
+                aria-labelledby={`blueprint-tab-${current.id}`}
+              >
+                <AnimatePresence mode="wait" initial={false}>
+                  <m.div
+                    key={current.id}
+                    className="studio-canvas-inner"
+                    initial={reduced ? false : { opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={reduced ? { opacity: 0 } : { opacity: 0, y: -6 }}
+                    transition={transition(0.24)}
+                  >
+                    <p className="studio-summary">{current.summary}</p>
+                    <ol className="studio-flow">
+                      {current.nodes.map(node => (
+                        <li key={node.step} className="studio-node">
+                          <div className="studio-node-head">
+                            <span className="studio-node-step">{node.step}</span>
+                            <span className="studio-node-meta">{node.meta}</span>
+                          </div>
+                          <strong>{node.label}</strong>
+                          <p>{node.detail}</p>
+                        </li>
+                      ))}
+                    </ol>
+                  </m.div>
+                </AnimatePresence>
+              </div>
+
+              <div className="studio-inspector">
+                <p className="studio-sidebar-label">{current.inspectorTitle}</p>
+                <ul className="studio-deliverables">
+                  {current.deliverables.map(item => (
+                    <li key={item}>
+                      <CheckIcon size={14} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="studio-stack">
+                  <p className="studio-sidebar-label">STACK PRINCIPAL</p>
+                  <div className="studio-stack-pills">
+                    {current.stack.map(tech => (
+                      <span key={tech}>{tech}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <MotionLink href="#contato" className="studio-cta">
+                  <span>Solicitar arquitetura</span>
+                  <ArrowUpRightIcon size={14} />
+                </MotionLink>
+              </div>
+            </div>
           </div>
         </m.div>
 
@@ -38,7 +187,7 @@ export default function Hero() {
           {heroFacts.map((fact, index) => (
             <li key={fact}>
               {index === 0 && <span className="status-dot" aria-hidden="true" />}
-              {fact}
+              <span>{fact}</span>
             </li>
           ))}
         </ul>

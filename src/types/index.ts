@@ -48,3 +48,33 @@ export interface NavLink {
   id: string;
   label: string;
 }
+
+export interface BlueprintNode {
+  step: string;
+  label: string;
+  detail: string;
+  meta: string;
+}
+
+export interface HeroBlueprint {
+  id: string;
+  tab: string;
+  path: string;
+  status: string;
+  summary: string;
+  nodes: BlueprintNode[];
+  inspectorTitle: string;
+  deliverables: string[];
+  stack: string[];
+}
+
+export interface ManifestoPillar {
+  value: string;
+  label: string;
+}
+
+export interface StackTile {
+  name: string;
+  role: string;
+  gridSlot: number;
+}

@@ -1,47 +1,62 @@
 import { steps } from "../data";
 import { m } from "framer-motion";
+import { LayersIcon } from "./Icons";
 import { useUiMotion } from "./Motion";
 
 export default function Process() {
   const { reduced, transition } = useUiMotion();
   const enter = (index: number) => ({
-    initial: reduced ? false : { opacity: 0, y: 16 },
+    initial: reduced ? false : { opacity: 0, y: 18 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.15 },
-    transition: { ...transition(0.45), delay: reduced ? 0 : index * 0.08 },
+    viewport: { once: true, amount: 0.12 },
+    transition: { ...transition(0.48), delay: reduced ? 0 : index * 0.06 },
   });
 
   return (
     <section id="processo" className="section process" aria-labelledby="process-title">
-      <div className="container process-layout">
-        <div className="process-sticky">
-          <span className="section-badge">COMO TRABALHAMOS</span>
-          <h2 id="process-title">Um caminho claro,<br />do primeiro oi <em>à entrega</em>.</h2>
-          <p className="process-intro">
-            Você acompanha as decisões, vê a ideia ganhar forma e sabe o que esperar em cada etapa do projeto.
-          </p>
-        </div>
+      <div className="container process-shell">
+        <div className="process-layout">
+          <div className="process-sticky">
+            <div className="pill-badge pill-badge-light">
+              <LayersIcon size={12} />
+              <span>MÉTODO DE ENTREGA</span>
+            </div>
 
-        <div className="process-timeline-wrap">
-          <ol className="steps process-timeline">
-            {steps.map(({ num, title, desc, deliverable }, index) => (
-              <m.li key={num} className="timeline-step" {...enter(index)}>
-                <div className="timeline-marker-col" aria-hidden="true">
-                  <span className="timeline-dot" />
-                  <span className="timeline-line" />
-                </div>
-                <div className="timeline-content">
-                  <span className="timeline-num" aria-hidden="true">{num}</span>
+            <h2 id="process-title">
+              Um caminho claro,
+              <br />
+              do primeiro oi <em>à entrega</em>.
+            </h2>
+
+            <p className="process-intro">
+              Você acompanha cada decisão técnica, valida o avanço em entregas reais e sabe exatamente o que esperar em cada etapa.
+            </p>
+
+            <div className="process-index-bar" aria-hidden="true">
+              <span>01</span>
+              <i />
+              <span>05 ETAPAS</span>
+            </div>
+          </div>
+
+          <div className="process-timeline-wrap">
+            <ol className="steps process-timeline">
+              {steps.map(({ num, title, desc, deliverable }, index) => (
+                <m.li key={num} className="timeline-card" {...enter(index)}>
+                  <div className="timeline-card-head">
+                    <span className="timeline-num" aria-hidden="true">{num}</span>
+                    <span className="timeline-phase">ETAPA {num}</span>
+                  </div>
                   <h3>{title}</h3>
                   <p className="step-desc">{desc}</p>
                   <div className="step-deliverable">
-                    <span className="deliverable-label">Você recebe:</span>
+                    <span className="deliverable-label">Você recebe</span>
                     <span className="deliverable-val">{deliverable}</span>
                   </div>
-                </div>
-              </m.li>
-            ))}
-          </ol>
+                </m.li>
+              ))}
+            </ol>
+          </div>
         </div>
       </div>
     </section>

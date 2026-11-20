@@ -1,15 +1,16 @@
 import { useState } from "react";
-import Navbar   from "./components/Navbar";
-import Hero     from "./components/Hero";
-import Services from "./components/Services";
-import About    from "./components/About";
-import Process  from "./components/Process";
-import Contact  from "./components/Contact";
-import Footer   from "./components/Footer";
-import FAQ      from "./components/FAQ";
-import type { ServiceRequest } from "./types";
-import { SiteMotion } from "./components/Motion";
+import Navbar      from "./components/Navbar";
+import Hero        from "./components/Hero";
+import Manifesto   from "./components/Manifesto";
+import Services    from "./components/Services";
+import About       from "./components/About";
+import Process     from "./components/Process";
+import FAQ         from "./components/FAQ";
+import Contact     from "./components/Contact";
+import Footer      from "./components/Footer";
 import FloatingCTA from "./components/FloatingCTA";
+import { SiteMotion } from "./components/Motion";
+import type { ServiceRequest } from "./types";
 
 export default function App() {
   const [serviceRequest, setServiceRequest] = useState<ServiceRequest | null>(null);
@@ -24,6 +25,7 @@ export default function App() {
         <Navbar />
         <main id="main-content" tabIndex={-1}>
           <Hero />
+          <Manifesto />
           <Services onSelectService={selectService} />
           <About />
           <Process />
