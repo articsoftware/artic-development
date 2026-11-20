@@ -2,7 +2,7 @@ import { useEffect, useState, useRef, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from "../config/emailjs";
 import { budgetOptions, contactItems, services, socialLinks } from "../data";
-import { contactIcons, CheckIcon, ArrowIcon } from "./Icons";
+import { contactIcons, CheckIcon, ArrowIcon, ArrowUpRightIcon, SparkIcon } from "./Icons";
 import type { ServiceRequest } from "../types";
 import { m } from "framer-motion";
 import { Disclosure, DisclosureIcon, MotionLink, Reveal, useUiMotion } from "./Motion";
@@ -25,7 +25,7 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
   useEffect(() => {
     if (!serviceRequest) return;
     setSelectedService(serviceRequest.value);
-    setStatus(current => current === "success" ? "idle" : current);
+    setStatus(current => (current === "success" ? "idle" : current));
     const frame = requestAnimationFrame(() => serviceRef.current?.focus({ preventScroll: true }));
     return () => cancelAnimationFrame(frame);
   }, [serviceRequest]);
@@ -63,86 +63,206 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
 
   return (
     <section id="contato" className="section contact-section" aria-labelledby="contact-title">
+      <div className="contact-glow" aria-hidden="true" />
       <div className="container contact-grid">
         <Reveal className="contact-copy">
-          <p className="eyebrow">Toda construção começa aqui</p>
-          <h2 id="contact-title">Qual é a sua<br />próxima <em>ideia</em>?</h2>
-          <p>Conte o que você quer transformar.<br />Vamos encontrar o caminho para fazer acontecer.</p>
-          <div className="contact-methods">
-            {contactItems.map(({ icon, label, value, href }) => (
-              <div key={label} className="contact-method">
-                <span aria-hidden="true">{contactIcons[icon]}</span>
-                <div><span>{label}</span>{href ? <MotionLink href={href}>{value}</MotionLink> : <p>{value}</p>}</div>
-              </div>
-            ))}
+          <div className="pill-badge pill-badge-dark">
+            <SparkIcon size={11} />
+            <span>TODA CONSTRUÇÃO COMEÇA AQUI</span>
           </div>
-          <MotionLink className="contact-social text-link" href={socialLinks.instagram} target="_blank" rel="noreferrer">
-            Conheça a Artic no Instagram <span aria-hidden="true">↗</span>
+
+          <h2 id="contact-title">
+            Qual é a sua
+            <br />
+            próxima <em>ideia</em>?
+          </h2>
+
+          <p className="contact-lede">
+            Conte o que você quer construir, integrar ou elevar de patamar. Retorno pessoalmente em até 24 horas com clareza sobre o melhor caminho.
+          </p>
+
+          <div className="contact-methods">
+            {contactItems.map(({ icon, label, value, href }) => {
+              const isExternal = href?.startsWith("http");
+              return (
+                <div key={label} className="contact-method">
+                  <span aria-hidden="true">{contactIcons[icon]}</span>
+                  <div>
+                    <span>{label}</span>
+                    {href ? (
+                      <MotionLink
+                        href={href}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
+                      >
+                        {value}
+                      </MotionLink>
+                    ) : (
+                      <p>{value}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <MotionLink
+            className="contact-social"
+            href={socialLinks.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Acompanhe a Artic no Instagram</span>
+            <ArrowUpRightIcon />
           </MotionLink>
         </Reveal>
+
         <div className="contact-form-panel">
           {status === "success" ? (
-            <m.div className="form-success" initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={transition(0.24)}>
-              <span aria-hidden="true"><CheckIcon /></span>
+            <m.div
+              className="form-success"
+              initial={{ opacity: reduced ? 1 : 0 }}
+              animate={{ opacity: 1 }}
+              transition={transition(0.24)}
+            >
+              <span aria-hidden="true"><CheckIcon size={22} /></span>
               <h3 ref={successRef} tabIndex={-1}>Conversa iniciada.</h3>
               <p>Recebi sua mensagem. Retorno em até 24 horas para falar sobre a sua ideia.</p>
-              <m.button className="button-secondary" onClick={resetForm} whileTap={reduced ? undefined : { scale: 0.98 }} transition={transition(0.12)}>Enviar outra mensagem</m.button>
+              <m.button
+                type="button"
+                className="button button-alabaster-outline"
+                onClick={resetForm}
+                whileTap={reduced ? undefined : { scale: 0.98 }}
+                transition={transition(0.12)}
+              >
+                Enviar outra mensagem
+              </m.button>
             </m.div>
           ) : (
             <>
               <div className="form-heading">
                 <h3>Vamos construir juntos.</h3>
-                <p>Análise inicial gratuita. Retorno em até 24h.</p>
+                <p>Análise inicial gratuita. Retorno direto em até 24h.</p>
               </div>
-              <span className="sr-only" role="status">{status === "loading" ? "Enviando mensagem. Aguarde." : ""}</span>
+              <span className="sr-only" role="status">
+                {status === "loading" ? "Enviando mensagem. Aguarde." : ""}
+              </span>
               <form ref={formRef} onSubmit={handleSubmit} aria-busy={status === "loading"}>
                 <p className="form-required-note">Os campos com * são obrigatórios.</p>
+
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="contact-name">Seu nome <span aria-hidden="true">*</span></label>
-                    <input ref={nameRef} id="contact-name" name="from_name" autoComplete="name" required placeholder="Como posso te chamar?" />
+                    <input
+                      ref={nameRef}
+                      id="contact-name"
+                      name="from_name"
+                      autoComplete="name"
+                      required
+                      placeholder="Como posso te chamar?"
+                    />
                   </div>
                   <div className="form-field">
                     <label htmlFor="contact-email">E-mail <span aria-hidden="true">*</span></label>
-                    <input id="contact-email" name="from_email" autoComplete="email" type="email" required placeholder="voce@empresa.com" />
+                    <input
+                      id="contact-email"
+                      name="from_email"
+                      autoComplete="email"
+                      type="email"
+                      required
+                      placeholder="voce@empresa.com"
+                    />
                   </div>
                 </div>
+
                 <div className="form-field">
                   <label htmlFor="contact-service">O que você precisa?</label>
-                  <select ref={serviceRef} id="contact-service" name="service" value={selectedService} onChange={event => setSelectedService(event.target.value)}>
+                  <select
+                    ref={serviceRef}
+                    id="contact-service"
+                    name="service"
+                    value={selectedService}
+                    onChange={event => setSelectedService(event.target.value)}
+                  >
                     <option value="">Ainda estou explorando as possibilidades</option>
                     {services.map(({ id, formLabel }) => <option key={id}>{formLabel}</option>)}
                     <option>Outros / Não sei ainda</option>
                   </select>
                 </div>
+
                 <div className="form-field">
                   <label htmlFor="contact-message">Conte um pouco sobre a ideia <span aria-hidden="true">*</span></label>
-                  <textarea id="contact-message" name="message" rows={4} required placeholder="O que você quer construir ou melhorar?" />
+                  <textarea
+                    id="contact-message"
+                    name="message"
+                    rows={4}
+                    required
+                    placeholder="O que você quer construir ou melhorar?"
+                  />
                 </div>
+
                 <div className="form-options">
                   <input type="hidden" name="budget" value={budget} />
-                  <button type="button" className="form-options-trigger" id="budget-trigger" aria-expanded={budgetOpen} aria-controls="budget-panel" onClick={() => setBudgetOpen(previous => !previous)}>
-                    <span>Detalhes opcionais <span>Investimento estimado</span></span><DisclosureIcon open={budgetOpen} />
+                  <button
+                    type="button"
+                    className="form-options-trigger"
+                    id="budget-trigger"
+                    aria-expanded={budgetOpen}
+                    aria-controls="budget-panel"
+                    onClick={() => setBudgetOpen(previous => !previous)}
+                  >
+                    <span>Detalhes opcionais <span>Investimento estimado</span></span>
+                    <DisclosureIcon open={budgetOpen} />
                   </button>
                   <Disclosure open={budgetOpen} id="budget-panel" labelledBy="budget-trigger">
-                  <div className="form-field">
-                    <label htmlFor="contact-budget">Qual faixa você tem em mente?</label>
-                    <select id="contact-budget" value={budget} onChange={event => setBudget(event.target.value)}>
-                      <option value="">Prefiro conversar primeiro</option>
-                      {budgetOptions.map(option => <option key={option}>{option}</option>)}
-                    </select>
-                  </div>
+                    <div className="form-field">
+                      <label htmlFor="contact-budget">Qual faixa você tem em mente?</label>
+                      <select
+                        id="contact-budget"
+                        value={budget}
+                        onChange={event => setBudget(event.target.value)}
+                      >
+                        <option value="">Prefiro conversar primeiro</option>
+                        {budgetOptions.map(option => <option key={option}>{option}</option>)}
+                      </select>
+                    </div>
                   </Disclosure>
                 </div>
+
                 {status === "error" && (
-                  <m.div className="form-error" role="alert" initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} transition={transition(0.16)}>
+                  <m.div
+                    className="form-error"
+                    role="alert"
+                    initial={{ opacity: reduced ? 1 : 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={transition(0.16)}
+                  >
                     <p>Não foi possível enviar. Seus dados continuam aqui para tentar novamente.</p>
-                    <div>{contactItems.filter(item => item.href).map(({ label, href }) => <a key={label} href={href}>Falar por {label}</a>)}</div>
+                    <div>
+                      {contactItems
+                        .filter(item => item.href)
+                        .map(({ label, href }) => (
+                          <a
+                            key={label}
+                            href={href}
+                            target={href?.startsWith("http") ? "_blank" : undefined}
+                            rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+                          >
+                            Falar por {label}
+                          </a>
+                        ))}
+                    </div>
                   </m.div>
                 )}
-                <m.button className="button-primary form-submit" type="submit" disabled={status === "loading"}
-                  whileTap={reduced || status === "loading" ? undefined : { scale: 0.985 }} transition={transition(0.12)}>
-                  {status === "loading" ? "Enviando mensagem..." : "Enviar mensagem"}
+
+                <m.button
+                  className="button button-obsidian form-submit"
+                  type="submit"
+                  disabled={status === "loading"}
+                  whileTap={reduced || status === "loading" ? undefined : { scale: 0.985 }}
+                  transition={transition(0.12)}
+                >
+                  <span>{status === "loading" ? "Enviando mensagem..." : "Enviar mensagem"}</span>
                   {status === "loading" ? <span className="submit-spinner" aria-hidden="true" /> : <ArrowIcon />}
                 </m.button>
                 <p className="form-note">Sem compromisso. Só uma boa conversa sobre o seu projeto.</p>
