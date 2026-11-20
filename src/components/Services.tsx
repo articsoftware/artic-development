@@ -3,9 +3,19 @@ import { MotionLink, useUiMotion } from "./Motion";
 import { serviceLayers, services, stackTiles } from "../data";
 import { serviceIcons, ArrowIcon, CheckIcon, LayersIcon, SparkIcon } from "./Icons";
 import iceTexture from "../assets/obsidian-ice-texture.webp";
+import heroGlacier from "../assets/hero-obsidian-glacier.webp";
+import arcticLandscape from "../assets/arctic-landscape-v1.webp";
 import type { Service, ServiceLayer } from "../types";
 
 type Select = (value: string) => void;
+
+const cardArtwork: Record<string, { src: string; pos: string }> = {
+  web:     { src: arcticLandscape, pos: "72% 40%" },
+  mobile:  { src: heroGlacier,     pos: "50% 42%" },
+  api:     { src: iceTexture,      pos: "20% 55%" },
+  auto:    { src: iceTexture,      pos: "78% 48%" },
+  process: { src: arcticLandscape, pos: "65% 58%" },
+};
 
 function LayerHead({ layer }: { layer: ServiceLayer }) {
   return (
@@ -43,16 +53,17 @@ function ServiceVisual({ id }: { id: string }) {
           <div className="mini-window-bar">
             <span /><span /><span />
             <div className="mini-url">app.cliente.com.br</div>
+            <div className="mini-live-chip">LIVE</div>
           </div>
           <div className="mini-window-grid">
             <div className="mini-stat">
-              <small>Performance</small>
+              <small>Core Web Vitals</small>
               <strong>Rápido &amp; Limpo</strong>
               <div className="mini-bars">
-                <i style={{ height: "42%" }} />
-                <i style={{ height: "64%" }} />
-                <i style={{ height: "54%" }} />
-                <i style={{ height: "82%" }} />
+                <i style={{ height: "44%" }} />
+                <i style={{ height: "66%" }} />
+                <i style={{ height: "58%" }} />
+                <i style={{ height: "84%" }} />
                 <i style={{ height: "100%" }} className="is-peak" />
               </div>
             </div>
@@ -78,12 +89,15 @@ function ServiceVisual({ id }: { id: string }) {
           </div>
           <div className="mini-phone-cards">
             <div className="mini-phone-card is-accent">
-              <span>Autoatendimento</span>
+              <div className="mini-phone-row">
+                <span>Autoatendimento</span>
+                <i className="mini-dot-active" />
+              </div>
               <small>Fluxo direto na palma da mão</small>
             </div>
             <div className="mini-phone-card">
               <span>Sincronização em tempo real</span>
-              <small>Conectado ao seu back-end</small>
+              <small>Integrado ao seu back-end</small>
             </div>
           </div>
         </div>
@@ -95,12 +109,15 @@ function ServiceVisual({ id }: { id: string }) {
     return (
       <div className="bento-visual bento-visual-api" aria-hidden="true">
         <div className="mini-code-card">
+          <div className="mini-code-head">
+            <span>API GATEWAY</span>
+            <span className="mini-code-badge">TLS · AUTH</span>
+          </div>
           <div className="mini-code-row">
             <span className="code-method">POST</span>
             <code>/v1/operacao/sincronizar</code>
             <span className="code-ok">200 OK</span>
           </div>
-          <div className="mini-code-divider" />
           <div className="mini-code-row">
             <span className="code-method is-get">GET</span>
             <code>/v1/clientes/status</code>
@@ -125,17 +142,17 @@ function ServiceVisual({ id }: { id: string }) {
             <strong>Novo evento</strong>
             <span>Formulário / ERP</span>
           </div>
-          <span className="mini-flow-arrow" />
+          <span className="mini-flow-connector" />
           <div className="mini-flow-box is-active">
             <small>02 · Orquestração</small>
             <strong>Validar &amp; Rotear</strong>
             <span>n8n · Webhooks</span>
           </div>
-          <span className="mini-flow-arrow" />
+          <span className="mini-flow-connector" />
           <div className="mini-flow-box">
             <small>03 · Ação</small>
             <strong>CRM Atualizado</strong>
-            <span>Sem trabalho manual</span>
+            <span>Zero manual</span>
           </div>
         </div>
       </div>
@@ -149,16 +166,19 @@ function ServiceVisual({ id }: { id: string }) {
           <span>FLUXO OPERACIONAL</span>
           <span className="mini-trend-pill">Gargalos eliminados</span>
         </div>
-        <svg viewBox="0 0 420 92" className="mini-trend-svg" preserveAspectRatio="none">
+        <svg viewBox="0 0 420 100" className="mini-trend-svg" preserveAspectRatio="none">
           <defs>
             <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#9EE4EC" stopOpacity="0.28" />
+              <stop offset="0%" stopColor="#9EE4EC" stopOpacity="0.34" />
               <stop offset="100%" stopColor="#9EE4EC" stopOpacity="0" />
             </linearGradient>
           </defs>
-          <path d="M0 78 C75 74, 120 62, 185 52 C245 43, 300 26, 420 12 L420 92 L0 92 Z" fill="url(#trendFill)" />
-          <path d="M0 78 C75 74, 120 62, 185 52 C245 43, 300 26, 420 12" fill="none" stroke="#9EE4EC" strokeWidth="1.75" />
-          <circle cx="305" cy="27" r="4.5" fill="#F4F6F7" stroke="#050709" strokeWidth="2" />
+          <line x1="0" y1="30" x2="420" y2="30" stroke="rgba(226,241,245,0.08)" strokeDasharray="3 5" />
+          <line x1="0" y1="64" x2="420" y2="64" stroke="rgba(226,241,245,0.08)" strokeDasharray="3 5" />
+          <path d="M0 84 C75 80, 120 66, 185 54 C245 43, 300 24, 420 10 L420 100 L0 100 Z" fill="url(#trendFill)" />
+          <path d="M0 84 C75 80, 120 66, 185 54 C245 43, 300 24, 420 10" fill="none" stroke="#9EE4EC" strokeWidth="2" />
+          <circle cx="185" cy="54" r="3.5" fill="#9EE4EC" />
+          <circle cx="305" cy="25" r="5" fill="#F4F6F7" stroke="#050709" strokeWidth="2" />
         </svg>
       </div>
     </div>
@@ -202,39 +222,48 @@ export default function Services({ onSelectService }: { onSelectService: Select 
         <div className="services-block">
           <LayerHead layer={surface} />
           <div className="bento-surface-grid">
-            {surfaceServices.map((service, index) => (
-              <m.article
-                key={service.id}
-                className="bento-card bento-card-surface"
-                aria-labelledby={"service-title-" + service.id}
-                {...enter(index)}
-              >
-                <div className="bento-card-bg" aria-hidden="true">
-                  <img src={iceTexture} alt="" loading="lazy" width={1376} height={768} />
-                </div>
+            {surfaceServices.map((service, index) => {
+              const art = cardArtwork[service.id];
+              return (
+                <m.article
+                  key={service.id}
+                  className="bento-card bento-card-surface"
+                  aria-labelledby={"service-title-" + service.id}
+                  {...enter(index)}
+                >
+                  <div className="bento-stage">
+                    <div className="bento-stage-art" aria-hidden="true">
+                      <img
+                        src={art.src}
+                        alt=""
+                        loading="lazy"
+                        width={1376}
+                        height={768}
+                        style={{ objectPosition: art.pos }}
+                      />
+                    </div>
+                    <div className="bento-card-top">
+                      <span className="service-icon" aria-hidden="true">{serviceIcons[service.id]}</span>
+                      <ul className="service-tags" aria-label="Tecnologias">
+                        {service.tags.map(tag => <li key={tag}>{tag}</li>)}
+                      </ul>
+                    </div>
+                    <ServiceVisual id={service.id} />
+                  </div>
 
-                <div className="bento-card-top">
-                  <span className="service-icon" aria-hidden="true">{serviceIcons[service.id]}</span>
-                  <ul className="service-tags" aria-label="Tecnologias">
-                    {service.tags.map(tag => <li key={tag}>{tag}</li>)}
-                  </ul>
-                </div>
-
-                <ServiceVisual id={service.id} />
-
-                <div className="bento-card-copy">
-                  <h4 id={"service-title-" + service.id}>{service.title}</h4>
-                  <p className="service-summary">{service.summary}</p>
-                  <p className="service-desc">{service.desc}</p>
-                  <ul className="service-examples" aria-label="Exemplos">
-                    {service.examples.map(example => (
-                      <li key={example}><CheckIcon size={14} /><span>{example}</span></li>
-                    ))}
-                  </ul>
-                  <ServiceCta service={service} onSelect={onSelectService} />
-                </div>
-              </m.article>
-            ))}
+                  <div className="bento-card-copy">
+                    <h4 id={"service-title-" + service.id}>{service.title}</h4>
+                    <p className="service-desc">{service.desc}</p>
+                    <ul className="service-examples" aria-label="Exemplos">
+                      {service.examples.map(example => (
+                        <li key={example}><CheckIcon size={13} /><span>{example}</span></li>
+                      ))}
+                    </ul>
+                    <ServiceCta service={service} onSelect={onSelectService} />
+                  </div>
+                </m.article>
+              );
+            })}
           </div>
         </div>
 
@@ -245,40 +274,85 @@ export default function Services({ onSelectService }: { onSelectService: Select 
         <div className="services-block">
           <LayerHead layer={depth} />
           <div className="bento-depth-grid">
-            {depthServices.map((service, index) => (
-              <m.article
-                key={service.id}
-                className={`bento-card bento-card-depth bento-slot-${service.id}`}
-                aria-labelledby={"service-title-" + service.id}
-                {...enter(index)}
-              >
-                <div className="bento-card-bg" aria-hidden="true">
-                  <img src={iceTexture} alt="" loading="lazy" width={1376} height={768} />
-                </div>
+            {depthServices.map((service, index) => {
+              const art = cardArtwork[service.id];
+              const isPanoramic = service.id === "process";
+              return (
+                <m.article
+                  key={service.id}
+                  className={`bento-card bento-card-depth bento-slot-${service.id}`}
+                  aria-labelledby={"service-title-" + service.id}
+                  {...enter(index)}
+                >
+                  {isPanoramic ? (
+                    <div className="bento-panoramic">
+                      <div className="bento-stage-art bento-panoramic-art" aria-hidden="true">
+                        <img
+                          src={art.src}
+                          alt=""
+                          loading="lazy"
+                          width={1376}
+                          height={768}
+                          style={{ objectPosition: art.pos }}
+                        />
+                      </div>
+                      <div className="bento-panoramic-copy">
+                        <div className="bento-card-top">
+                          <span className="service-icon" aria-hidden="true">{serviceIcons[service.id]}</span>
+                          <ul className="service-tags" aria-label="Tecnologias">
+                            {service.tags.map(tag => <li key={tag}>{tag}</li>)}
+                          </ul>
+                        </div>
+                        <h4 id={"service-title-" + service.id}>{service.title}</h4>
+                        <p className="service-desc">{service.desc}</p>
+                        <ul className="service-examples" aria-label="Exemplos">
+                          {service.examples.map(example => (
+                            <li key={example}><CheckIcon size={13} /><span>{example}</span></li>
+                          ))}
+                        </ul>
+                        <ServiceCta service={service} onSelect={onSelectService} />
+                      </div>
+                      <div className="bento-panoramic-visual">
+                        <ServiceVisual id={service.id} />
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="bento-stage bento-stage-depth">
+                        <div className="bento-stage-art" aria-hidden="true">
+                          <img
+                            src={art.src}
+                            alt=""
+                            loading="lazy"
+                            width={1376}
+                            height={768}
+                            style={{ objectPosition: art.pos }}
+                          />
+                        </div>
+                        <div className="bento-card-top">
+                          <span className="service-icon" aria-hidden="true">{serviceIcons[service.id]}</span>
+                          <ul className="service-tags" aria-label="Tecnologias">
+                            {service.tags.map(tag => <li key={tag}>{tag}</li>)}
+                          </ul>
+                        </div>
+                        <ServiceVisual id={service.id} />
+                      </div>
 
-                <div className="bento-card-top">
-                  <span className="service-icon" aria-hidden="true">{serviceIcons[service.id]}</span>
-                  <ul className="service-tags" aria-label="Tecnologias">
-                    {service.tags.map(tag => <li key={tag}>{tag}</li>)}
-                  </ul>
-                </div>
-
-                <div className="bento-depth-content">
-                  <div className="bento-card-copy">
-                    <h4 id={"service-title-" + service.id}>{service.title}</h4>
-                    <p className="service-summary">{service.summary}</p>
-                    <p className="service-desc">{service.desc}</p>
-                    <ul className="service-examples" aria-label="Exemplos">
-                      {service.examples.map(example => (
-                        <li key={example}><CheckIcon size={14} /><span>{example}</span></li>
-                      ))}
-                    </ul>
-                    <ServiceCta service={service} onSelect={onSelectService} />
-                  </div>
-                  <ServiceVisual id={service.id} />
-                </div>
-              </m.article>
-            ))}
+                      <div className="bento-card-copy">
+                        <h4 id={"service-title-" + service.id}>{service.title}</h4>
+                        <p className="service-desc">{service.desc}</p>
+                        <ul className="service-examples" aria-label="Exemplos">
+                          {service.examples.map(example => (
+                            <li key={example}><CheckIcon size={13} /><span>{example}</span></li>
+                          ))}
+                        </ul>
+                        <ServiceCta service={service} onSelect={onSelectService} />
+                      </div>
+                    </>
+                  )}
+                </m.article>
+              );
+            })}
           </div>
 
           <div className="services-invite">

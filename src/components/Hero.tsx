@@ -137,33 +137,77 @@ export default function Hero() {
                     exit={reduced ? { opacity: 0 } : { opacity: 0, y: -6 }}
                     transition={transition(0.24)}
                   >
-                    <p className="studio-summary">{current.summary}</p>
-                    <ol className="studio-flow">
-                      {current.nodes.map(node => (
-                        <li key={node.step} className="studio-node">
-                          <div className="studio-node-head">
-                            <span className="studio-node-step">{node.step}</span>
-                            <span className="studio-node-meta">{node.meta}</span>
-                          </div>
-                          <strong>{node.label}</strong>
-                          <p>{node.detail}</p>
-                        </li>
-                      ))}
-                    </ol>
+                    <div className="studio-canvas-head">
+                      <p className="studio-summary">{current.summary}</p>
+                      <span className="studio-flow-badge" aria-hidden="true">01 → 04 · FLUXO CONECTADO</span>
+                    </div>
+
+                    <div className="studio-graph">
+                      {/* Connected architectural spline overlay on desktop */}
+                      <svg
+                        className="studio-wires"
+                        viewBox="0 0 600 264"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                      >
+                        {/* 01 -> 02 horizontal bridge */}
+                        <path
+                          className="wire-base"
+                          d="M 278 58 L 322 58"
+                        />
+                        <path
+                          className="wire-pulse"
+                          d="M 278 58 L 322 58"
+                        />
+                        {/* 02 -> 03 clean S-curve vertical routing */}
+                        <path
+                          className="wire-base"
+                          d="M 460 118 C 460 144, 140 122, 140 150"
+                        />
+                        <path
+                          className="wire-pulse wire-pulse-delay"
+                          d="M 460 118 C 460 144, 140 122, 140 150"
+                        />
+                        {/* 03 -> 04 horizontal bridge */}
+                        <path
+                          className="wire-base"
+                          d="M 278 206 L 322 206"
+                        />
+                        <path
+                          className="wire-pulse wire-pulse-delay-2"
+                          d="M 278 206 L 322 206"
+                        />
+                      </svg>
+
+                      <ol className="studio-flow">
+                        {current.nodes.map((node, index) => (
+                          <li key={node.step} className={`studio-node studio-node-${index + 1}`}>
+                            <div className="studio-node-head">
+                              <span className="studio-node-step">{node.step}</span>
+                              <span className="studio-node-meta">{node.meta}</span>
+                            </div>
+                            <strong>{node.label}</strong>
+                            <p>{node.detail}</p>
+                          </li>
+                        ))}
+                      </ol>
+                    </div>
                   </m.div>
                 </AnimatePresence>
               </div>
 
               <div className="studio-inspector">
-                <p className="studio-sidebar-label">{current.inspectorTitle}</p>
-                <ul className="studio-deliverables">
-                  {current.deliverables.map(item => (
-                    <li key={item}>
-                      <CheckIcon size={14} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="studio-inspector-details">
+                  <p className="studio-sidebar-label">{current.inspectorTitle}</p>
+                  <ul className="studio-deliverables">
+                    {current.deliverables.map(item => (
+                      <li key={item}>
+                        <CheckIcon size={14} />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
                 <div className="studio-stack">
                   <p className="studio-sidebar-label">STACK PRINCIPAL</p>
