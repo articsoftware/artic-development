@@ -1,5 +1,5 @@
 import Logo from "./Logo";
-import { contactItems, navLinks, socialLinks } from "../data";
+import { contactItems, navLinks, privacyPolicy, socialLinks } from "../data";
 import { ArrowUpRightIcon, MailIcon, PhoneIcon } from "./Icons";
 import iceTexture from "../assets/obsidian-ice-texture.webp";
 import { MotionLink } from "./Motion";
@@ -76,7 +76,8 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>© {new Date().getFullYear()} Artic Development</p>
           <p className="footer-legal">
-            Artic Desenvolvimento de Software LTDA · CNPJ 69.133.740/0001-00
+            Artic Desenvolvimento de Software LTDA · CNPJ 69.133.740/0001-00 ·{" "}
+            <a href={privacyPolicy.path}>Política de privacidade</a>
           </p>
           <MotionLink
             className="back-to-top"

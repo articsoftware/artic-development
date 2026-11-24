@@ -78,3 +78,14 @@ export interface StackTile {
   role: string;
   gridSlot: number;
 }
+
+/** Texto vira parágrafo; array de textos vira lista. */
+export type PolicyBlock = string | string[];
+
+export interface PrivacyPolicy {
+  path: string;
+  email: string;
+  updatedAt: string;
+  intro: string;
+  sections: { title: string; content: PolicyBlock[] }[];
+}

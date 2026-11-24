@@ -8,6 +8,7 @@ import type {
   HeroBlueprint,
   ManifestoPillar,
   StackTile,
+  PrivacyPolicy,
 } from "../types";
 
 export const services: Service[] = [
@@ -264,3 +265,107 @@ export const budgetOptions = [
   "Acima de R$ 50.000",
   "A definir / Em aberto",
 ];
+
+export const privacyPolicy: PrivacyPolicy = {
+  path: "/privacidade",
+  email: "privacidade@articdevelopment.com.br",
+  updatedAt: "23 de novembro de 2026",
+  intro: "Esta política explica quais dados pessoais a Artic Development coleta neste site, para que eles são usados e como você exerce os seus direitos previstos na Lei Geral de Proteção de Dados (Lei nº 13.709/2018 — LGPD).",
+  sections: [
+    {
+      title: "Quem trata os seus dados",
+      content: [
+        "Artic Desenvolvimento de Software LTDA, CNPJ 69.133.740/0001-00, com sede em São José dos Pinhais, PR, é a controladora dos dados pessoais tratados neste site.",
+      ],
+    },
+    {
+      title: "Quais dados coletamos",
+      content: [
+        "Pelo formulário de contato, coletamos apenas o que você envia:",
+        [
+          "Nome",
+          "E-mail",
+          "Tipo de serviço de interesse (opcional)",
+          "Mensagem sobre o seu projeto",
+          "Faixa de investimento (opcional)",
+        ],
+        "Ao acessar o site, os provedores de hospedagem e de fontes registram dados técnicos da conexão, como endereço IP, navegador e data de acesso.",
+        "Não pedimos dados sensíveis, como saúde, religião ou origem racial. Evite incluí-los na mensagem.",
+      ],
+    },
+    {
+      title: "Para que usamos",
+      content: [
+        [
+          "Responder ao seu contato e entender o seu projeto",
+          "Preparar uma proposta comercial, quando você pedir",
+          "Manter o site seguro e funcionando (dados técnicos de acesso)",
+        ],
+        "Não vendemos os seus dados, não os usamos para publicidade e não incluímos o seu e-mail em listas de marketing.",
+      ],
+    },
+    {
+      title: "Bases legais",
+      content: [
+        [
+          "Procedimentos preliminares a um contrato, a pedido do titular (art. 7º, V da LGPD): responder ao contato e preparar propostas.",
+          "Legítimo interesse (art. 7º, IX da LGPD): segurança e funcionamento do site.",
+        ],
+      ],
+    },
+    {
+      title: "Com quem compartilhamos",
+      content: [
+        "Usamos fornecedores que tratam dados em nosso nome, apenas para operar o site:",
+        [
+          "EmailJS: entrega as mensagens do formulário na nossa caixa de e-mail.",
+          "Provedor de e-mail corporativo: armazena as mensagens recebidas.",
+          "Vercel: hospeda o site e registra dados técnicos de acesso.",
+          "Google Fonts: fornece as fontes do site e recebe o endereço IP de quem acessa.",
+        ],
+        "Alguns desses fornecedores processam dados fora do Brasil, conforme as políticas de privacidade de cada um. Também podemos compartilhar dados quando a lei ou uma autoridade competente exigir.",
+        "Os links para WhatsApp e Instagram levam a serviços de terceiros, com políticas próprias.",
+      ],
+    },
+    {
+      title: "Cookies",
+      content: [
+        "Este site não usa cookies de rastreamento nem ferramentas de analytics ou publicidade.",
+      ],
+    },
+    {
+      title: "Por quanto tempo guardamos",
+      content: [
+        "As mensagens de contato ficam guardadas pelo tempo necessário para responder e negociar. Se o contato virar projeto, os dados passam a seguir o contrato e os prazos legais de guarda, como os fiscais. Sem continuidade, as mensagens são excluídas em até 12 meses.",
+      ],
+    },
+    {
+      title: "Segurança",
+      content: [
+        "Adotamos medidas técnicas e administrativas para proteger os seus dados, como conexão criptografada (HTTPS) e acesso à caixa de e-mail restrito ao responsável pelo atendimento.",
+      ],
+    },
+    {
+      title: "Seus direitos",
+      content: [
+        "Pela LGPD (art. 18), você pode pedir a qualquer momento:",
+        [
+          "Confirmação de que tratamos os seus dados e acesso a eles",
+          "Correção de dados incompletos, inexatos ou desatualizados",
+          "Anonimização, bloqueio ou eliminação de dados desnecessários ou excessivos",
+          "Eliminação dos seus dados, exceto quando a lei exigir a guarda",
+          "Portabilidade dos dados a outro fornecedor",
+          "Informação sobre com quem compartilhamos os seus dados",
+          "Oposição a um tratamento que descumpra a LGPD",
+        ],
+        "Respondemos em até 15 dias. Você também pode reclamar à Autoridade Nacional de Proteção de Dados (ANPD).",
+      ],
+    },
+    {
+      title: "Alterações",
+      content: [
+        "Esta política pode ser atualizada. A data no topo da página indica a versão em vigor.",
+      ],
+    },
+  ],
+};

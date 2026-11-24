@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef, FormEvent } from "react";
 import emailjs from "@emailjs/browser";
 import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY } from "../config/emailjs";
-import { budgetOptions, contactItems, services, socialLinks } from "../data";
+import { budgetOptions, contactItems, privacyPolicy, services, socialLinks } from "../data";
 import { contactIcons, CheckIcon, ArrowIcon, ArrowUpRightIcon, SparkIcon } from "./Icons";
 import type { ServiceRequest } from "../types";
 import { m } from "framer-motion";
@@ -265,7 +265,11 @@ export default function Contact({ serviceRequest }: { serviceRequest: ServiceReq
                   <span>{status === "loading" ? "Enviando mensagem..." : "Enviar mensagem"}</span>
                   {status === "loading" ? <span className="submit-spinner" aria-hidden="true" /> : <ArrowIcon />}
                 </m.button>
-                <p className="form-note">Sem compromisso. Só uma boa conversa sobre o seu projeto.</p>
+                <p className="form-note">
+                  Sem compromisso. Só uma boa conversa sobre o seu projeto.{" "}
+                  {/* Nova aba: navegar na mesma aba apagaria o que já foi digitado. */}
+                  <a href={privacyPolicy.path} target="_blank" rel="noopener">Veja a política de privacidade</a>.
+                </p>
               </form>
             </>
           )}

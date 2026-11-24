@@ -2045,6 +2045,13 @@ h2 em {
   color: var(--ink-dark-muted);
   font-size: 13.5px;
 }
+.form-note a,
+.footer-legal a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form-note a:hover { color: var(--ink-dark); }
+.footer-legal a:hover { color: var(--accent-ice); }
 .form-error {
   margin-bottom: 20px;
   padding: 15px 16px;
@@ -2210,6 +2217,67 @@ h2 em {
 }
 .back-to-top:hover { color: var(--accent-ice); }
 .back-to-top > span:last-child { transition: transform .2s var(--ease); }
+
+/* ─── Política de Privacidade (privacidade.html) ────────────────────────── */
+.policy-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: var(--nav-h);
+  border-bottom: 1px solid var(--border-dark);
+}
+.policy-back {
+  font-size: 14px;
+  color: var(--ink-light-muted);
+}
+.policy-back:hover { color: var(--accent-ice); }
+.policy {
+  max-width: 760px;
+  padding-block: clamp(48px, 8vw, 96px);
+  color: var(--ink-light-muted);
+}
+.policy h1 {
+  font-family: var(--serif);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -.025em;
+  color: var(--ink-light);
+}
+.policy-updated {
+  margin-top: 14px;
+  font: 400 12px/1.6 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.policy-intro {
+  margin-top: 28px;
+  font-size: 18px;
+  color: var(--ink-light);
+}
+.policy section {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-dark);
+}
+.policy h2 {
+  margin-bottom: 16px;
+  font-size: clamp(26px, 3vw, 32px);
+  color: var(--ink-light);
+}
+.policy p + p,
+.policy ul + p,
+.policy p + ul { margin-top: 14px; }
+.policy ul { margin: 0; padding-left: 20px; list-style: disc; }
+.policy li + li { margin-top: 6px; }
+.policy li::marker { color: var(--accent-ice); }
+.policy-contact a {
+  color: var(--accent-ice);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+}
 
 /* ─── Floating WhatsApp CTA (Obsidian Glass High-Ticket Orb) ────────────── */
 .floating-cta {
